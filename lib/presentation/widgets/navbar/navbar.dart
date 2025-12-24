@@ -14,7 +14,8 @@ class NavBar extends StatelessWidget {
   static const List<String> items = [
     'About',
     'Education',
-    'Resume',
+    'Skills',
+    'Experience',
     'Portfolio',
     'Blog',
     'Contact',

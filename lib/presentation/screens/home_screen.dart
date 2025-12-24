@@ -6,8 +6,9 @@ import 'package:nahid_hasan_noyon/presentation/pages/about/about_page.dart';
 import 'package:nahid_hasan_noyon/presentation/pages/blog/blog_page.dart';
 import 'package:nahid_hasan_noyon/presentation/pages/contact/contact_page.dart';
 import 'package:nahid_hasan_noyon/presentation/pages/education/education_page.dart';
+import 'package:nahid_hasan_noyon/presentation/pages/experience/experience_page.dart';
 import 'package:nahid_hasan_noyon/presentation/pages/portfolio/portfolio_page.dart';
-import 'package:nahid_hasan_noyon/presentation/pages/resume/resume_page.dart';
+import 'package:nahid_hasan_noyon/presentation/pages/skills/skills_page.dart';
 import 'package:nahid_hasan_noyon/presentation/widgets/navbar/navbar.dart';
 import 'package:nahid_hasan_noyon/presentation/widgets/sidebar/sidebar.dart';
 
@@ -24,7 +25,8 @@ class _HomeScreenState extends State<HomeScreen> {
   final List<Widget> _pages = const [
     AboutPage(),
     EducationPage(),
-    ResumePage(),
+    SkillsPage(),
+    ExperiencePage(),
     PortfolioPage(),
     BlogPage(),
     ContactPage(),
