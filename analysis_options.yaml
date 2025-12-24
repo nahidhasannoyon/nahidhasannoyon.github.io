@@ -21,8 +21,51 @@ linter:
   # `// ignore_for_file: name_of_lint` syntax on the line or in the file
   # producing the lint.
   rules:
-    # avoid_print: false  # Uncomment to disable the `avoid_print` rule
-    # prefer_single_quotes: true  # Uncomment to enable the `prefer_single_quotes` rule
+    # Prefer const usage
+    prefer_const_constructors: true
+    prefer_const_declarations: true
+    prefer_const_literals_to_create_immutables: true
 
+    # Enforce readability & best practices
+    avoid_print: true # Use debugPrint/log instead
+    avoid_unnecessary_containers: true
+    unnecessary_this: true
+    always_use_package_imports: true
+    sort_child_properties_last: true
+    prefer_final_locals: true
+    prefer_final_in_for_each: true
+
+    # Performance & correctness
+    avoid_redundant_argument_values: true
+    prefer_single_quotes: true
+    join_return_with_assignment: true
+    use_key_in_widget_constructors: true
+    use_super_parameters: true
+
+    # Code style and clarity
+    lines_longer_than_80_chars: false # Optional: if you use 120+ width monitors
+    annotate_overrides: true
+    prefer_typing_uninitialized_variables: true
+    require_trailing_commas: true
+    sort_constructors_first: true
+    always_declare_return_types: true
+
+    # avoid_classes_with_only_static_members: true
+    avoid_setters_without_getters: true
+    avoid_multiple_declarations_per_line: true
+    # prefer_expression_function_bodies: true
+    comment_references: true
+    public_member_api_docs: false # Set to true if you want to enforce DartDoc
+    unnecessary_getters_setters: true
+
+    # Style
+    camel_case_types: true
+    camel_case_extensions: true
+    file_names: true
+    package_names: true
+    library_prefixes: true
+    non_constant_identifier_names: true
+    constant_identifier_names: true
+    avoid_dynamic_calls: true
 # Additional information about this file can be found at
 # https://dart.dev/guides/language/analysis-options
