@@ -29,8 +29,7 @@
       "assets/assets/images/for_mouse_cursor/tom-and-jerry-fighting-1.png",
     fighting2:
       "assets/assets/images/for_mouse_cursor/tom-and-jerry-fighting-2.png",
-    jerryOnHead:
-      "assets/assets/images/for_mouse_cursor/jerrey-on-toms-head.png",
+    jerryOnHead: "assets/assets/images/for_mouse_cursor/jerry-on-toms-head.png",
   };
 
   // State variables

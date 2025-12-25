@@ -220,7 +220,7 @@ class PortfolioContent {
       dateRange: 'September 2022 – April 2023 (8 Months)',
       location: 'Cumilla, Bangladesh',
       description: [
-        'Designed and developed the BAIUST Transport Schedule App using Flutter, featuring a digital verification system for authorized bus travel, enhancing convenience and security for Internals.',
+        'Designed and developed the BAIUST Transport Schedule App using Flutter, featuring a digital verification system for authorized bus travel, enhancing convenience and security for teacher, student, and staff.',
       ],
     ),
   ];
