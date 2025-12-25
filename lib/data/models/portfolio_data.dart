@@ -1,3 +1,9 @@
+class LanguageItem {
+  const LanguageItem({required this.name, required this.proficiency});
+  final String name;
+  final String proficiency;
+}
+
 class PersonInfo {
   const PersonInfo({
     required this.name,
@@ -7,6 +13,7 @@ class PersonInfo {
     required this.phone,
     required this.location,
     required this.socialLinks,
+    this.languages,
   });
   final String name;
   final String title;
@@ -15,6 +22,7 @@ class PersonInfo {
   final String phone;
   final String location;
   final List<SocialLink> socialLinks;
+  final List<LanguageItem>? languages;
 }
 
 class SocialLink {
@@ -59,8 +67,8 @@ class ClientItem {
   final String url;
 }
 
-class ProfessionalTimelineItem {
-  const ProfessionalTimelineItem({
+class ExperienceTimelineItem {
+  const ExperienceTimelineItem({
     required this.company,
     required this.location,
     required this.role,
@@ -122,24 +130,6 @@ class ProjectItem {
   final List<String>? keywords;
   final List<ProjectLink>? links;
 }
-
-class BlogPost {
-  const BlogPost({
-    required this.title,
-    required this.category,
-    required this.date,
-    required this.imageUrl,
-    required this.excerpt,
-    this.url,
-  });
-  final String title;
-  final String category;
-  final String date;
-  final String imageUrl;
-  final String excerpt;
-  final String? url;
-}
-
 class CertificationItem {
   const CertificationItem({
     required this.title,

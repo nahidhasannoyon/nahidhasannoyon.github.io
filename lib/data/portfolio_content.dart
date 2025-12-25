@@ -25,6 +25,17 @@ class PortfolioContent {
         icon: 'assets/icons/whatsapp.svg',
       ),
     ],
+    languages: [
+      LanguageItem(
+        name: 'Bengali',
+        proficiency: 'Native or bilingual proficiency',
+      ),
+      LanguageItem(
+        name: 'English',
+        proficiency: 'Professional working proficiency',
+      ),
+      LanguageItem(name: 'Hindi', proficiency: 'Elementary proficiency'),
+    ],
   );
 
   static const List<String> aboutText = [
@@ -156,8 +167,8 @@ class PortfolioContent {
     ),
   ];
 
-  static const List<ProfessionalTimelineItem> experience = [
-    ProfessionalTimelineItem(
+  static const List<ExperienceTimelineItem> professional = [
+    ExperienceTimelineItem(
       role: 'Flutter Developer',
       company: 'Inflack Limited',
       dateRange: 'May 2025 – Present (8 Months)',
@@ -169,7 +180,7 @@ class PortfolioContent {
         'Improved app performance by optimizing state management, reducing widget rebuilds, and implementing efficient caching strategies.',
       ],
     ),
-    ProfessionalTimelineItem(
+    ExperienceTimelineItem(
       role: 'Quality Checker (Flutter)',
       company: 'SuperAnnotate',
       dateRange: 'February 2025 – April 2025 (3 Months)',
@@ -181,7 +192,7 @@ class PortfolioContent {
         'Provided feedback to enhance AI response quality.',
       ],
     ),
-    ProfessionalTimelineItem(
+    ExperienceTimelineItem(
       role: 'Flutter Developer',
       company: 'Cloud Tecnico',
       dateRange: 'October 2024 – January 2025 (4 Months)',
@@ -190,7 +201,7 @@ class PortfolioContent {
         'Developed Leadvala, a Flutter-based lead generation app with features like call recording, lead assignment, and management.',
       ],
     ),
-    ProfessionalTimelineItem(
+    ExperienceTimelineItem(
       role: 'Assistant Engineer',
       company: 'ePolli Technologies',
       dateRange: 'May 2023 – September 2024 (1 Year 5 Month)',
@@ -202,14 +213,27 @@ class PortfolioContent {
     ),
   ];
 
-  static const List<ProfessionalTimelineItem> interns = [
-    ProfessionalTimelineItem(
+  static const List<ExperienceTimelineItem> interns = [
+    ExperienceTimelineItem(
       role: 'Intern',
       company: 'ICT Wing & Archive',
       dateRange: 'September 2022 – April 2023 (8 Months)',
-      location: 'Cumilla',
+      location: 'Cumilla, Bangladesh',
       description: [
         'Designed and developed the BAIUST Transport Schedule App using Flutter, featuring a digital verification system for authorized bus travel, enhancing convenience and security for Internals.',
+      ],
+    ),
+  ];
+
+  static const List<ExperienceTimelineItem> volunteer = [
+    ExperienceTimelineItem(
+      role: 'Executive Member',
+      company: 'BAIUST Computer Club',
+      dateRange: 'July 2019 – January 2023 (3 Years 7 Months)',
+      location: 'Cumilla, Bangladesh',
+      description: [
+        'Organized coding workshops, hackathons, and tech talks to foster a culture of learning and innovation among members.',
+        'Led a team of 5 members to develop and maintain the club\'s website and mobile app, enhancing member engagement and communication.',
       ],
     ),
   ];
@@ -295,7 +319,6 @@ class PortfolioContent {
   static const List<String> projectCategories = [
     'All',
     'Applications',
-    'Web development',
     'Packages',
   ];
 
@@ -424,56 +447,37 @@ class PortfolioContent {
           'A university transport management system with digital verification for bus travel, real-time tracking, schedule management, and attendance integration for students.',
       keywords: ['Flutter', 'Transportation', 'Digital Verification', 'IoT'],
     ),
-  ];
+    ProjectItem(
+      title: 'Smart State Handler',
+      category: 'Packages',
 
-  static const List<BlogPost> blogPosts = [
-    BlogPost(
-      title: 'Design conferences in 2022',
-      category: 'Design',
-      date: 'Feb 23, 2022',
-      imageUrl: 'assets/images/blog-1.jpg',
-      excerpt:
-          'Veritatis et quasi architecto beatae vitae dicta sunt, explicabo.',
-    ),
-    BlogPost(
-      title: 'Best fonts every designer',
-      category: 'Design',
-      date: 'Feb 23, 2022',
-      imageUrl: 'assets/images/blog-2.jpg',
-      excerpt:
-          'Sed ut perspiciatis, nam libero tempore, cum soluta nobis est eligendi.',
-    ),
-    BlogPost(
-      title: 'Design digest #80',
-      category: 'Design',
-      date: 'Feb 23, 2022',
-      imageUrl: 'assets/images/blog-3.jpg',
-      excerpt:
-          'Excepteur sint occaecat cupidatat no proident, quis nostrum exercitationem ullam corporis suscipit.',
-    ),
-    BlogPost(
-      title: 'UI interactions of the week',
-      category: 'Design',
-      date: 'Feb 23, 2022',
-      imageUrl: 'assets/images/blog-4.jpg',
-      excerpt:
-          'Enim ad minim veniam, consectetur adipiscing elit, quis nostrud exercitation ullamco laboris nisi.',
-    ),
-    BlogPost(
-      title: 'The forgotten art of spacing',
-      category: 'Design',
-      date: 'Feb 23, 2022',
-      imageUrl: 'assets/images/blog-5.jpg',
-      excerpt:
-          'Maxime placeat, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-    ),
-    BlogPost(
-      title: 'Design digest #79',
-      category: 'Design',
-      date: 'Feb 23, 2022',
-      imageUrl: 'assets/images/blog-6.jpg',
-      excerpt:
-          'Optio cumque nihil impedit uo minus quod maxime placeat, velit esse cillum.',
+      imageUrls: [
+        'https://images.unsplash.com/photo-1576092160562-40f96b0fbbf0?w=600&h=400&fit=crop',
+        'https://images.unsplash.com/photo-1464207687429-7505649dae38?w=600&h=400&fit=crop',
+        'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=600&h=400&fit=crop',
+      ],
+      description:
+          'A fully customizable Flutter UI state-management package designed to handle loading, error,   success, empty, and offline states with smooth animations, overlay mode, and pagination support. Includes configurable components for text, widgets, snackbars, and transitions, making it ideal for scalable and clean UI-state workflows.',
+      keywords: [
+        'State Management',
+        'UI',
+        'Widget',
+        'Animation',
+        'Overlay',
+        'Pagination',
+      ],
+      links: [
+        ProjectLink(
+          name: 'Pub.dev',
+          url: 'https://pub.dev/packages/smart_state_handler',
+          icon: 'assets/icons/dart_pub.svg',
+        ),
+        ProjectLink(
+          name: 'GitHub',
+          url: 'https://github.com/nahidhasannoyon/smart_state_handler',
+          icon: 'assets/icons/github.svg',
+        ),
+      ],
     ),
   ];
 

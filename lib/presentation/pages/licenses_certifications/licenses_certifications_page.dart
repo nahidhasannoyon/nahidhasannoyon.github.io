@@ -545,6 +545,12 @@ class _CertificationCard extends StatelessWidget {
                                   fontWeight: FontWeight.w500,
                                 ),
                               ),
+                              const SizedBox(width: 4),
+                              const Icon(
+                                Icons.open_in_new,
+                                size: 18,
+                                color: AppColors.orangeYellowCrayola,
+                              ),
                             ],
                           ),
                         ),

@@ -5,8 +5,8 @@ import 'package:nahid_hasan_noyon/core/utils/responsive.dart';
 import 'package:nahid_hasan_noyon/presentation/pages/about/about_page.dart';
 import 'package:nahid_hasan_noyon/presentation/pages/contact/contact_page.dart';
 import 'package:nahid_hasan_noyon/presentation/pages/education/education_page.dart';
+import 'package:nahid_hasan_noyon/presentation/pages/experience/experience_page.dart';
 import 'package:nahid_hasan_noyon/presentation/pages/licenses_certifications/licenses_certifications_page.dart';
-import 'package:nahid_hasan_noyon/presentation/pages/professional_experience/professional_experience_page.dart';
 import 'package:nahid_hasan_noyon/presentation/pages/projects/projects_page.dart';
 import 'package:nahid_hasan_noyon/presentation/pages/skills/skills_page.dart';
 import 'package:nahid_hasan_noyon/presentation/widgets/footer/footer.dart';
@@ -24,12 +24,12 @@ class _HomeScreenState extends State<HomeScreen> {
   int _selectedPageIndex = 0;
 
   final List<Widget> _pages = const [
-    LicensesCertificationsPage(),
-    ProjectsPage(),
-    ProfessionalExperiencePage(),
     AboutPage(),
-    EducationPage(),
+    ExperiencePage(),
+    ProjectsPage(),
     SkillsPage(),
+    EducationPage(),
+    LicensesCertificationsPage(),
     ContactPage(),
   ];
 
@@ -166,9 +166,27 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       clipBehavior: Clip.antiAlias,
       child: AnimatedSwitcher(
-        duration: const Duration(milliseconds: 300),
+        duration: const Duration(milliseconds: 400),
+        switchInCurve: Curves.easeInOut,
+        switchOutCurve: Curves.easeInOut,
         transitionBuilder: (child, animation) {
-          return FadeTransition(opacity: animation, child: child);
+          final offsetAnimation =
+              Tween<Offset>(
+                begin: const Offset(0.1, 0.0),
+                end: Offset.zero,
+              ).animate(
+                CurvedAnimation(parent: animation, curve: Curves.easeOutCubic),
+              );
+
+          final fadeAnimation = CurvedAnimation(
+            parent: animation,
+            curve: Curves.easeIn,
+          );
+
+          return FadeTransition(
+            opacity: fadeAnimation,
+            child: SlideTransition(position: offsetAnimation, child: child),
+          );
         },
         child: KeyedSubtree(
           key: ValueKey(_selectedPageIndex),
