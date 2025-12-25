@@ -39,6 +39,7 @@ class EducationPage extends StatelessWidget {
             icon: Icons.menu_book_outlined,
             items: PortfolioContent.schoolEducation,
           ),
+          const SizedBox(height: 100),
         ],
       ),
     );

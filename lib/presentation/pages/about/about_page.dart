@@ -26,6 +26,8 @@ class AboutPage extends StatelessWidget {
             height: Responsive.getValue(context, mobile: 20, tablet: 40),
           ),
           _buildServices(context),
+          const SizedBox(height: 50),
+          _buildLanguages(context),
           const SizedBox(height: 35),
           // TODO: later add testimonials
           // buildTestimonials(context),
@@ -80,6 +82,26 @@ class AboutPage extends StatelessWidget {
                   .toList(),
             );
           },
+        ),
+      ],
+    );
+  }
+
+  Widget _buildLanguages(BuildContext context) {
+    final languages = PortfolioContent.person.languages;
+    if (languages == null || languages.isEmpty) return const SizedBox.shrink();
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Text('Languages', style: AppTextStyles.h3),
+        const SizedBox(height: 20),
+        Wrap(
+          spacing: 20,
+          runSpacing: 20,
+          children: languages
+              .map((lang) => _LanguageCard(language: lang))
+              .toList(),
         ),
       ],
     );
@@ -376,6 +398,53 @@ class _ClientLogoState extends State<_ClientLogo> {
             ),
           ),
         ),
+      ),
+    );
+  }
+}
+
+class _LanguageCard extends StatelessWidget {
+  const _LanguageCard({required this.language});
+  final LanguageItem language;
+
+  @override
+  Widget build(BuildContext context) {
+    return GradientBox(
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
+                width: 8,
+                height: 8,
+                decoration: const BoxDecoration(
+                  gradient: AppColors.textGradientYellow,
+                  shape: BoxShape.circle,
+                ),
+              ),
+              const SizedBox(width: 10),
+              Text(
+                language.name,
+                style: AppTextStyles.h4.copyWith(fontSize: 16),
+              ),
+            ],
+          ),
+          const SizedBox(height: 8),
+          Padding(
+            padding: const EdgeInsets.only(left: 18),
+            child: Text(
+              language.proficiency,
+              style: AppTextStyles.bodyText.copyWith(
+                fontSize: 13,
+                color: AppColors.lightGray,
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

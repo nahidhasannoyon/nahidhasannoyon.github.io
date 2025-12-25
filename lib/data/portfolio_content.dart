@@ -25,6 +25,17 @@ class PortfolioContent {
         icon: 'assets/icons/whatsapp.svg',
       ),
     ],
+    languages: [
+      LanguageItem(
+        name: 'Bengali',
+        proficiency: 'Native or bilingual proficiency',
+      ),
+      LanguageItem(
+        name: 'English',
+        proficiency: 'Professional working proficiency',
+      ),
+      LanguageItem(name: 'Hindi', proficiency: 'Elementary proficiency'),
+    ],
   );
 
   static const List<String> aboutText = [
@@ -156,8 +167,8 @@ class PortfolioContent {
     ),
   ];
 
-  static const List<ProfessionalTimelineItem> experience = [
-    ProfessionalTimelineItem(
+  static const List<ExperienceTimelineItem> professional = [
+    ExperienceTimelineItem(
       role: 'Flutter Developer',
       company: 'Inflack Limited',
       dateRange: 'May 2025 – Present (8 Months)',
@@ -169,7 +180,7 @@ class PortfolioContent {
         'Improved app performance by optimizing state management, reducing widget rebuilds, and implementing efficient caching strategies.',
       ],
     ),
-    ProfessionalTimelineItem(
+    ExperienceTimelineItem(
       role: 'Quality Checker (Flutter)',
       company: 'SuperAnnotate',
       dateRange: 'February 2025 – April 2025 (3 Months)',
@@ -181,7 +192,7 @@ class PortfolioContent {
         'Provided feedback to enhance AI response quality.',
       ],
     ),
-    ProfessionalTimelineItem(
+    ExperienceTimelineItem(
       role: 'Flutter Developer',
       company: 'Cloud Tecnico',
       dateRange: 'October 2024 – January 2025 (4 Months)',
@@ -190,7 +201,7 @@ class PortfolioContent {
         'Developed Leadvala, a Flutter-based lead generation app with features like call recording, lead assignment, and management.',
       ],
     ),
-    ProfessionalTimelineItem(
+    ExperienceTimelineItem(
       role: 'Assistant Engineer',
       company: 'ePolli Technologies',
       dateRange: 'May 2023 – September 2024 (1 Year 5 Month)',
@@ -202,14 +213,27 @@ class PortfolioContent {
     ),
   ];
 
-  static const List<ProfessionalTimelineItem> interns = [
-    ProfessionalTimelineItem(
+  static const List<ExperienceTimelineItem> interns = [
+    ExperienceTimelineItem(
       role: 'Intern',
       company: 'ICT Wing & Archive',
       dateRange: 'September 2022 – April 2023 (8 Months)',
-      location: 'Cumilla',
+      location: 'Cumilla, Bangladesh',
       description: [
-        'Designed and developed the BAIUST Transport Schedule App using Flutter, featuring a digital verification system for authorized bus travel, enhancing convenience and security for Internals.',
+        'Designed and developed the BAIUST Transport Schedule App using Flutter, featuring a digital verification system for authorized bus travel, enhancing convenience and security for teacher, student, and staff.',
+      ],
+    ),
+  ];
+
+  static const List<ExperienceTimelineItem> volunteer = [
+    ExperienceTimelineItem(
+      role: 'Executive Member',
+      company: 'BAIUST Computer Club',
+      dateRange: 'July 2019 – January 2023 (3 Years 7 Months)',
+      location: 'Cumilla, Bangladesh',
+      description: [
+        'Organized coding workshops, hackathons, and tech talks to foster a culture of learning and innovation among members.',
+        'Led a team of 5 members to develop and maintain the club\'s website and mobile app, enhancing member engagement and communication.',
       ],
     ),
   ];
@@ -294,110 +318,352 @@ class PortfolioContent {
 
   static const List<String> projectCategories = [
     'All',
-    'Web design',
     'Applications',
-    'Web development',
+    'Packages',
   ];
 
   static const List<ProjectItem> projects = [
     ProjectItem(
       title: 'CareConnect App',
       category: 'Applications',
-      imageUrl: 'assets/images/project-1.jpg',
+
+      imageUrls: [
+        'https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=600&h=400&fit=crop',
+        'https://images.unsplash.com/photo-1579154204601-01d82b27ebcc?w=600&h=400&fit=crop',
+        'https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=600&h=400&fit=crop',
+      ],
+      description:
+          'A comprehensive healthcare application connecting patients with medical professionals and enabling appointment scheduling, medical record management, and telemedicine consultations.',
+      keywords: ['Flutter', 'Healthcare', 'Firebase', 'REST API'],
+      links: [
+        ProjectLink(
+          name: 'GitHub',
+          url: 'https://github.com/nahidhasannoyon/careconnect',
+          icon: 'assets/icons/github.svg',
+        ),
+      ],
     ),
     ProjectItem(
       title: 'SmartAttendance Mobile App',
       category: 'Applications',
-      imageUrl: 'assets/images/project-2.png',
+
+      imageUrls: [
+        'https://images.unsplash.com/photo-1531482615713-2afd69097998?w=600&h=400&fit=crop',
+        'https://images.unsplash.com/photo-1552664730-d307ca884978?w=600&h=400&fit=crop',
+        'https://images.unsplash.com/photo-1552965736-5a6370d0d17b?w=600&h=400&fit=crop',
+      ],
+      description:
+          'An intelligent attendance tracking system using biometric recognition and real-time synchronization for schools and organizations with comprehensive reporting features.',
+      keywords: ['Flutter', 'Biometrics', 'Real-time Sync', 'Analytics'],
     ),
     ProjectItem(
       title: 'ePolli App',
       category: 'Applications',
-      imageUrl: 'assets/images/project-3.jpg',
+
+      imageUrls: [
+        'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=600&h=400&fit=crop',
+        'https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=600&h=400&fit=crop',
+        'https://images.unsplash.com/photo-1454496522488-7a8e488e8606?w=600&h=400&fit=crop',
+      ],
+      description:
+          'A multi-vendor e-commerce platform enabling seamless shopping experience with product catalog, cart management, secure payment integration, and order tracking.',
+      keywords: ['Flutter', 'E-commerce', 'Payment Gateway', 'GetX'],
     ),
     ProjectItem(
       title: 'ePolli Shohoz Khamari App',
       category: 'Applications',
-      imageUrl: 'assets/images/project-4.png',
+
+      imageUrls: [
+        'https://images.unsplash.com/photo-1555939594-58d7cb561231?w=600&h=400&fit=crop',
+        'https://images.unsplash.com/photo-1484488167118-3a23c0b7b8a3?w=600&h=400&fit=crop',
+        'https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=600&h=400&fit=crop',
+      ],
+      description:
+          'A specialized e-commerce application for groceries and daily essentials with real-time inventory management, fast delivery integration, and consumer-friendly interface.',
+      keywords: ['Flutter', 'E-commerce', 'Grocery', 'Delivery Integration'],
     ),
     ProjectItem(
       title: 'GrowBook App',
       category: 'Applications',
-      imageUrl: 'assets/images/project-5.png',
+
+      imageUrls: [
+        'https://images.unsplash.com/photo-1530836369250-ef72a3f5cda8?w=600&h=400&fit=crop',
+        'https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=600&h=400&fit=crop',
+        'https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=600&h=400&fit=crop',
+      ],
+      description:
+          'An agricultural technology platform designed to help farmers track crops, manage resources, access market prices, and connect with agricultural experts for better yields.',
+      keywords: ['Flutter', 'AgriTech', 'Data Analytics', 'IoT Integration'],
     ),
     ProjectItem(
       title: 'ekDeal APP',
       category: 'Applications',
-      imageUrl: 'assets/images/project-6.png',
+
+      imageUrls: [
+        'https://images.unsplash.com/photo-1552288049-bebda541e8ee?w=600&h=400&fit=crop',
+        'https://images.unsplash.com/photo-1556740722-97cbbba6db3b?w=600&h=400&fit=crop',
+        'https://images.unsplash.com/photo-1564684853211-8db1bdf9c5f4?w=600&h=400&fit=crop',
+      ],
+      description:
+          'A dynamic deals and discounts marketplace featuring real-time offers, vendor collaboration, user-friendly deal discovery, and secure transaction management.',
+      keywords: ['Flutter', 'E-commerce', 'Offers', 'Provider'],
     ),
     ProjectItem(
       title: 'ePolli Multi-vendor App',
       category: 'Applications',
-      imageUrl: 'assets/images/project-7.png',
+
+      imageUrls: [
+        'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&h=400&fit=crop',
+        'https://images.unsplash.com/photo-1452587925148-ce544e77e70d?w=600&h=400&fit=crop',
+        'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=600&h=400&fit=crop',
+      ],
+      description:
+          'A scalable multi-vendor platform supporting hundreds of sellers with individual stores, inventory management, commission handling, and comprehensive admin dashboard.',
+      keywords: ['Flutter', 'Multi-vendor', 'Firestore', 'Clean Architecture'],
     ),
     ProjectItem(
       title: 'Leadvala',
       category: 'Applications',
-      imageUrl: 'assets/images/project-8.jpg',
+
+      imageUrls: [
+        'https://images.unsplash.com/photo-1552664730-d307ca884978?w=600&h=400&fit=crop',
+        'https://images.unsplash.com/photo-1556740722-97cbbba6db3b?w=600&h=400&fit=crop',
+        'https://images.unsplash.com/photo-1552965736-5a6370d0d17b?w=600&h=400&fit=crop',
+      ],
+      description:
+          'A lead generation and management platform featuring call recording, automatic lead assignment, analytics dashboard, and CRM integration for sales teams.',
+      keywords: ['Flutter', 'CRM', 'Call Recording', 'Lead Management'],
     ),
     ProjectItem(
       title: 'BAIUST Transport Schedule App',
       category: 'Applications',
-      imageUrl: 'assets/images/project-9.png',
+
+      imageUrls: [
+        'https://images.unsplash.com/photo-1576092160562-40f96b0fbbf0?w=600&h=400&fit=crop',
+        'https://images.unsplash.com/photo-1464207687429-7505649dae38?w=600&h=400&fit=crop',
+        'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=600&h=400&fit=crop',
+      ],
+      description:
+          'A university transport management system with digital verification for bus travel, real-time tracking, schedule management, and attendance integration for students.',
+      keywords: ['Flutter', 'Transportation', 'Digital Verification', 'IoT'],
+    ),
+    ProjectItem(
+      title: 'Smart State Handler',
+      category: 'Packages',
+
+      imageUrls: [
+        'https://images.unsplash.com/photo-1576092160562-40f96b0fbbf0?w=600&h=400&fit=crop',
+        'https://images.unsplash.com/photo-1464207687429-7505649dae38?w=600&h=400&fit=crop',
+        'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=600&h=400&fit=crop',
+      ],
+      description:
+          'A fully customizable Flutter UI state-management package designed to handle loading, error,   success, empty, and offline states with smooth animations, overlay mode, and pagination support. Includes configurable components for text, widgets, snackbars, and transitions, making it ideal for scalable and clean UI-state workflows.',
+      keywords: [
+        'State Management',
+        'UI',
+        'Widget',
+        'Animation',
+        'Overlay',
+        'Pagination',
+      ],
+      links: [
+        ProjectLink(
+          name: 'Pub.dev',
+          url: 'https://pub.dev/packages/smart_state_handler',
+          icon: 'assets/icons/dart_pub.svg',
+        ),
+        ProjectLink(
+          name: 'GitHub',
+          url: 'https://github.com/nahidhasannoyon/smart_state_handler',
+          icon: 'assets/icons/github.svg',
+        ),
+      ],
     ),
   ];
 
-  static const List<BlogPost> blogPosts = [
-    BlogPost(
-      title: 'Design conferences in 2022',
-      category: 'Design',
-      date: 'Feb 23, 2022',
-      imageUrl: 'assets/images/blog-1.jpg',
-      excerpt:
-          'Veritatis et quasi architecto beatae vitae dicta sunt, explicabo.',
-    ),
-    BlogPost(
-      title: 'Best fonts every designer',
-      category: 'Design',
-      date: 'Feb 23, 2022',
-      imageUrl: 'assets/images/blog-2.jpg',
-      excerpt:
-          'Sed ut perspiciatis, nam libero tempore, cum soluta nobis est eligendi.',
-    ),
-    BlogPost(
-      title: 'Design digest #80',
-      category: 'Design',
-      date: 'Feb 23, 2022',
-      imageUrl: 'assets/images/blog-3.jpg',
-      excerpt:
-          'Excepteur sint occaecat cupidatat no proident, quis nostrum exercitationem ullam corporis suscipit.',
-    ),
-    BlogPost(
-      title: 'UI interactions of the week',
-      category: 'Design',
-      date: 'Feb 23, 2022',
-      imageUrl: 'assets/images/blog-4.jpg',
-      excerpt:
-          'Enim ad minim veniam, consectetur adipiscing elit, quis nostrud exercitation ullamco laboris nisi.',
-    ),
-    BlogPost(
-      title: 'The forgotten art of spacing',
-      category: 'Design',
-      date: 'Feb 23, 2022',
-      imageUrl: 'assets/images/blog-5.jpg',
-      excerpt:
-          'Maxime placeat, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-    ),
-    BlogPost(
-      title: 'Design digest #79',
-      category: 'Design',
-      date: 'Feb 23, 2022',
-      imageUrl: 'assets/images/blog-6.jpg',
-      excerpt:
-          'Optio cumque nihil impedit uo minus quod maxime placeat, velit esse cillum.',
-    ),
+  static const List<String> certificationCategories = [
+    'All',
+    'Dart & Flutter',
+    'Version Control',
+    'AI & Tools',
   ];
 
-  static const String mapEmbedUrl =
-      'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3651.9022!2d90.4125!3d23.8103!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755c64c6e5c77db%3A0x3b97e7e2e6e6e6e6!2sDhaka%2C%20Bangladesh!5e0!3m2!1sen!2sbd!4v1647608789441!5m2!1sen!2sbd';
+  static const List<CertificationItem> certifications = [
+    CertificationItem(
+      title: 'Introduction to Git and GitHub',
+      issuer: 'Google',
+      issuerLogo: 'assets/images/google.png',
+      category: 'Version Control',
+      imageUrl:
+          'assets/images/certificates/Courses/Git/Introduction to Git and GitHub Certificate.jpg',
+      issueDate: 'Oct 2024',
+      skills: ['Git', 'GitHub'],
+      credentialLink: ProjectLink(
+        name: 'Show credential',
+        url:
+            'https://www.coursera.org/account/accomplishments/records/WLI4XD6XBYZE',
+      ),
+    ),
+    CertificationItem(
+      title: 'ChatGPT Plugins: The Complete Guide',
+      issuer: 'Udemy',
+      issuerLogo: 'assets/images/udemy.png',
+      category: 'AI & Tools',
+      imageUrl:
+          'assets/images/certificates/Courses/ChatGPT/ChatGPT Plugins - The Complete Guide.jpg',
+      issueDate: 'Oct 2023',
+      skills: ['ChatGPT', 'AI', 'Prompt Engineering', 'API Integration'],
+      credentialLink: ProjectLink(
+        name: 'Show credential',
+        url:
+            'https://www.udemy.com/certificate/UC-cfbf48aa-a01b-4a4f-b803-7f762cc3e65a/',
+      ),
+    ),
+    CertificationItem(
+      title: 'Learn Flutter GetX Course 2023',
+      issuer: 'Udemy',
+      issuerLogo: 'assets/images/udemy.png',
+      category: 'Dart & Flutter',
+      imageUrl:
+          'assets/images/certificates/Courses/Flutter/Learn Flutter GetX Course 2023.jpg',
+      issueDate: 'Oct 2023',
+      skills: [
+        'Dart',
+        'Dependency Injection',
+        'GetX',
+        'Flutter',
+        'State Management',
+      ],
+      credentialLink: ProjectLink(
+        name: 'Show credential',
+        url:
+            'https://www.udemy.com/certificate/UC-c319b14e-de38-432d-9fc7-49117bb86692/',
+      ),
+    ),
+    CertificationItem(
+      title: 'Mastering the Fundamentals of ChatGPT and AI Tools',
+      issuer: 'Udemy',
+      issuerLogo: 'assets/images/udemy.png',
+      category: 'AI & Tools',
+      imageUrl:
+          'assets/images/certificates/Courses/ChatGPT/Mastering the Fundamentals of ChatGPT and AI Tools.jpg',
+      issueDate: 'Oct 2023',
+      skills: ['ChatGPT', 'AI Tools', 'Prompt Engineering', 'Productivity'],
+      credentialLink: ProjectLink(
+        name: 'Show credential',
+        url:
+            'https://www.udemy.com/certificate/UC-83486d73-81d2-4951-bc98-8c24ba5cc68c/',
+      ),
+    ),
+    CertificationItem(
+      title: 'GetX Flutter App Development',
+      issuer: 'MindLuster',
+      issuerLogo: 'assets/images/mind_luster.png',
+      category: 'Dart & Flutter',
+      issueDate: 'May 2023',
+      imageUrl:
+          'assets/images/certificates/Courses/Flutter/GetX Flutter App Development.jpg',
+      skills: [
+        'Dart',
+        'Dependency Injection',
+        'GetX',
+        'Flutter',
+        'State Management',
+      ],
+      credentialLink: ProjectLink(
+        name: 'Show credential',
+        url: 'https://www.mindluster.com/certified/check/2692793577',
+      ),
+    ),
+    CertificationItem(
+      title: 'Flutter & Dart - The Complete Flutter App Development Course',
+      issuer: 'Udemy',
+      issuerLogo: 'assets/images/udemy.png',
+      category: 'Dart & Flutter',
+      imageUrl:
+          'assets/images/certificates/Courses/Flutter/Flutter & Dart - The Complete Flutter App Development Course.jpg',
+      issueDate: 'Dec 2022',
+      skills: ['Dart', 'Flutter', 'State Management'],
+      credentialLink: ProjectLink(
+        name: 'Show credential',
+        url:
+            'https://www.udemy.com/certificate/UC-42e3ba4c-7e61-4ee2-9156-5d331ec11cd8/',
+      ),
+    ),
+    CertificationItem(
+      title: 'Dart and Flutter: The Complete Developer\'s Guide',
+      issuer: 'Udemy',
+      issuerLogo: 'assets/images/udemy.png',
+      category: 'Dart & Flutter',
+      imageUrl:
+          "assets/images/certificates/Courses/Flutter/Dart and Flutter - The Complete Developer's Guide.jpg",
+      issueDate: 'Nov 2022',
+      skills: ['Dart', 'Flutter', 'State Management'],
+      credentialLink: ProjectLink(
+        name: 'Show credential',
+        url:
+            'https://www.udemy.com/certificate/UC-efcd343c-df68-4a4e-acec-240a52e3e62b/',
+      ),
+    ),
+    CertificationItem(
+      title: 'Flutter - Firebase - MySQL Multi-store App (Full - Deep)',
+      issuer: 'Udemy',
+      issuerLogo: 'assets/images/udemy.png',
+      category: 'Dart & Flutter',
+      imageUrl:
+          'assets/images/certificates/Courses/Flutter/Flutter - Firebase - MySQL Multi-store App (Full - Deep).jpg',
+      issueDate: 'Nov 2022',
+      skills: ['Dart', 'Firebase', 'Flutter', 'State Management'],
+      credentialLink: ProjectLink(
+        name: 'Show credential',
+        url:
+            'https://www.udemy.com/certificate/UC-139b11e1-2a94-4671-8eaf-c5721b57a477/',
+      ),
+    ),
+    CertificationItem(
+      title: 'The Complete 2021 Flutter Development Bootcamp with Dart',
+      issuer: 'Udemy',
+      issuerLogo: 'assets/images/udemy.png',
+      category: 'Dart & Flutter',
+      imageUrl:
+          'assets/images/certificates/Courses/Flutter/The Complete Flutter Development Bootcamp with Dart.jpg',
+      issueDate: 'Oct 2022',
+      skills: ['Dart', 'Flutter', 'State Management'],
+      credentialLink: ProjectLink(
+        name: 'Show credential',
+        url:
+            'https://www.udemy.com/certificate/UC-a5d0fcff-29e6-45ff-92a0-454fc03509c7/',
+      ),
+    ),
+    CertificationItem(
+      title: 'The Git & GitHub Bootcamp',
+      issuer: 'Udemy',
+      issuerLogo: 'assets/images/udemy.png',
+      category: 'Version Control',
+      imageUrl:
+          'assets/images/certificates/Courses/Git/The Git & GitHub Bootcamp.jpg',
+      issueDate: 'Oct 2022',
+      skills: ['Git', 'GitHub'],
+      credentialLink: ProjectLink(
+        name: 'Show credential',
+        url:
+            'https://www.udemy.com/certificate/UC-a29331dd-9144-4e6f-b75d-c31b82bd5516/',
+      ),
+    ),
+    CertificationItem(
+      title: 'Git Going Fast One Hour Git Crash Course Certificate',
+      issuer: 'Udemy',
+      issuerLogo: 'assets/images/udemy.png',
+      category: 'Version Control',
+      issueDate: 'July 2022',
+      imageUrl:
+          'assets/images/certificates/Courses/Git/Git Going Fast One Hour Git Crash Course Certificate.jpg',
+      skills: ['Git', 'GitHub'],
+      credentialLink: ProjectLink(
+        name: 'Show credential',
+        url:
+            'https://www.udemy.com/certificate/UC-9ce99ead-30bd-47ff-8b10-725ef76ccbbe/',
+      ),
+    ),
+  ];
 }

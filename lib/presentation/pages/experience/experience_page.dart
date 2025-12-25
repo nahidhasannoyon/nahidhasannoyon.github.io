@@ -5,8 +5,8 @@ import 'package:nahid_hasan_noyon/data/models/portfolio_data.dart';
 import 'package:nahid_hasan_noyon/data/portfolio_content.dart';
 import 'package:nahid_hasan_noyon/presentation/widgets/common/common_widgets.dart';
 
-class ProfessionalExperiencePage extends StatelessWidget {
-  const ProfessionalExperiencePage({super.key});
+class ExperiencePage extends StatelessWidget {
+  const ExperiencePage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -17,19 +17,25 @@ class ProfessionalExperiencePage extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const ArticleTitle(title: 'Professional Experience'),
+          const ArticleTitle(title: 'Experience'),
           const SizedBox(height: 30),
           _buildTimeline(
             context,
-            title: 'Full-Time / Contract Roles',
+            title: 'Professional Experience',
             icon: Icons.book_outlined,
-            items: PortfolioContent.experience,
+            items: PortfolioContent.professional,
           ),
           _buildTimeline(
             context,
-            title: 'Internships',
+            title: 'Internship Experience',
             icon: Icons.book_outlined,
             items: PortfolioContent.interns,
+          ),
+          _buildTimeline(
+            context,
+            title: 'Volunteer Experience',
+            icon: Icons.book_outlined,
+            items: PortfolioContent.volunteer,
           ),
         ],
       ),
@@ -40,7 +46,7 @@ class ProfessionalExperiencePage extends StatelessWidget {
     BuildContext context, {
     required String title,
     required IconData icon,
-    required List<ProfessionalTimelineItem> items,
+    required List<ExperienceTimelineItem> items,
   }) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -76,7 +82,7 @@ class ProfessionalExperiencePage extends StatelessWidget {
 
 class _TimelineItemWidget extends StatelessWidget {
   const _TimelineItemWidget({required this.item, required this.isLast});
-  final ProfessionalTimelineItem item;
+  final ExperienceTimelineItem item;
   final bool isLast;
 
   @override

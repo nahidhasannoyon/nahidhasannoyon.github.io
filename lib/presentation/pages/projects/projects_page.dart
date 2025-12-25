@@ -4,6 +4,9 @@ import 'package:nahid_hasan_noyon/core/utils/responsive.dart';
 import 'package:nahid_hasan_noyon/data/models/portfolio_data.dart';
 import 'package:nahid_hasan_noyon/data/portfolio_content.dart';
 import 'package:nahid_hasan_noyon/presentation/widgets/common/common_widgets.dart';
+import 'package:nahid_hasan_noyon/presentation/widgets/project_detail_modal.dart';
+import 'package:svg_flutter/svg.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ProjectsPage extends StatefulWidget {
   const ProjectsPage({super.key});
@@ -162,6 +165,7 @@ class _ProjectsPageState extends State<ProjectsPage> {
       itemBuilder: (context, index) {
         return _ProjectCard(
           project: _filteredProjects[index],
+          selectedCategory: _selectedCategory,
           key: ValueKey(_filteredProjects[index].title),
         );
       },
@@ -248,15 +252,65 @@ class _DropdownItemState extends State<_DropdownItem> {
 }
 
 class _ProjectCard extends StatefulWidget {
-  const _ProjectCard({super.key, required this.project});
+  const _ProjectCard({
+    super.key,
+    required this.project,
+    required this.selectedCategory,
+  });
   final ProjectItem project;
+  final String selectedCategory;
 
   @override
   State<_ProjectCard> createState() => _ProjectCardState();
 }
 
-class _ProjectCardState extends State<_ProjectCard> {
+class _ProjectCardState extends State<_ProjectCard>
+    with SingleTickerProviderStateMixin {
   bool _isHovered = false;
+  late List<String> _images;
+  int _currentImageIndex = 0;
+  late AnimationController _autoScrollController;
+
+  @override
+  void initState() {
+    super.initState();
+    _images =
+        widget.project.imageUrls ??
+        ['https://via.placeholder.com/400x300?text=No+Image'];
+
+    // Auto-rotate images every 3 seconds
+    _autoScrollController = AnimationController(
+      duration: const Duration(seconds: 3),
+      vsync: this,
+    );
+
+    _startAutoCycle();
+  }
+
+  void _startAutoCycle() {
+    _autoScrollController.forward().then((_) {
+      if (mounted) {
+        setState(() {
+          _currentImageIndex = (_currentImageIndex + 1) % _images.length;
+        });
+        _autoScrollController.reset();
+        _startAutoCycle();
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _autoScrollController.dispose();
+    super.dispose();
+  }
+
+  void _showProjectModal(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) => ProjectDetailModal(project: widget.project),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -264,87 +318,247 @@ class _ProjectCardState extends State<_ProjectCard> {
       onEnter: (_) => setState(() => _isHovered = true),
       onExit: (_) => setState(() => _isHovered = false),
       cursor: SystemMouseCursors.click,
-      child: AnimatedScale(
-        scale: _isHovered ? 1.02 : 1,
-        duration: const Duration(milliseconds: 250),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Expanded(
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(16),
-                child: Stack(
-                  fit: StackFit.expand,
-                  children: [
-                    AnimatedScale(
-                      scale: _isHovered ? 1.1 : 1,
-                      duration: const Duration(milliseconds: 250),
-                      child: Image.network(
-                        'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=300&fit=crop',
-                        fit: BoxFit.cover,
-                        errorBuilder: (_, _, _) => Container(
-                          color: AppColors.jet,
-                          child: const Icon(
-                            Icons.image,
-                            color: AppColors.lightGray,
-                            size: 50,
+      child: GestureDetector(
+        onTap: () => _showProjectModal(context),
+        child: AnimatedScale(
+          scale: _isHovered ? 1.02 : 1,
+          duration: const Duration(milliseconds: 250),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(16),
+                  child: Stack(
+                    fit: StackFit.expand,
+                    children: [
+                      AnimatedScale(
+                        scale: _isHovered ? 1.1 : 1,
+                        duration: const Duration(milliseconds: 250),
+                        child: AnimatedSwitcher(
+                          duration: const Duration(milliseconds: 500),
+                          transitionBuilder: (child, animation) =>
+                              SlideTransition(
+                                position: Tween<Offset>(
+                                  begin: const Offset(1, 0),
+                                  end: Offset.zero,
+                                ).animate(animation),
+                                child: child,
+                              ),
+                          child: Image.network(
+                            _images[_currentImageIndex],
+                            key: ValueKey(_images[_currentImageIndex]),
+                            fit: BoxFit.cover,
+                            errorBuilder: (_, _, _) => Container(
+                              color: AppColors.jet,
+                              child: const Icon(
+                                Icons.image,
+                                color: AppColors.lightGray,
+                                size: 50,
+                              ),
+                            ),
                           ),
                         ),
                       ),
+                      AnimatedContainer(
+                        duration: const Duration(milliseconds: 250),
+                        color: _isHovered
+                            ? Colors.black.withValues(alpha: 0.5)
+                            : Colors.transparent,
+                      ),
+                      AnimatedOpacity(
+                        duration: const Duration(milliseconds: 250),
+                        opacity: _isHovered ? 1 : 0,
+                        child: Center(
+                          child: AnimatedScale(
+                            scale: _isHovered ? 1 : 0.8,
+                            duration: const Duration(milliseconds: 250),
+                            child: Container(
+                              padding: const EdgeInsets.all(18),
+                              decoration: BoxDecoration(
+                                color: AppColors.jet,
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              child: const Icon(
+                                Icons.visibility_outlined,
+                                color: AppColors.orangeYellowCrayola,
+                                size: 20,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              const SizedBox(height: 15),
+              Padding(
+                padding: const EdgeInsets.only(left: 10),
+                child: Text(
+                  widget.project.title,
+                  style: AppTextStyles.h4.copyWith(
+                    fontSize: 15,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+              ),
+              if (widget.selectedCategory == 'All') ...[
+                Padding(
+                  padding: const EdgeInsets.only(left: 10),
+                  child: Text(
+                    widget.project.category,
+                    style: AppTextStyles.bodyText.copyWith(
+                      color: AppColors.lightGray70,
                     ),
-                    AnimatedContainer(
-                      duration: const Duration(milliseconds: 250),
-                      color: _isHovered
-                          ? Colors.black.withValues(alpha: 0.5)
-                          : Colors.transparent,
+                  ),
+                ),
+              ],
+              if (widget.project.description != null) ...[
+                const SizedBox(height: 10),
+                Padding(
+                  padding: const EdgeInsets.only(left: 10, right: 10),
+                  child: Text(
+                    widget.project.description!,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    style: AppTextStyles.bodyText.copyWith(
+                      fontSize: 13,
+                      color: AppColors.lightGray70,
                     ),
-                    AnimatedOpacity(
-                      duration: const Duration(milliseconds: 250),
-                      opacity: _isHovered ? 1 : 0,
-                      child: Center(
-                        child: AnimatedScale(
-                          scale: _isHovered ? 1 : 0.8,
-                          duration: const Duration(milliseconds: 250),
-                          child: Container(
-                            padding: const EdgeInsets.all(18),
+                  ),
+                ),
+              ],
+              if (widget.project.keywords != null &&
+                  widget.project.keywords!.isNotEmpty) ...[
+                const SizedBox(height: 10),
+                Padding(
+                  padding: const EdgeInsets.only(left: 10, right: 10),
+                  child: Wrap(
+                    spacing: 6,
+                    runSpacing: 4,
+                    children: widget.project.keywords!
+                        .take(3)
+                        .map(
+                          (keyword) => Container(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 8,
+                              vertical: 4,
+                            ),
                             decoration: BoxDecoration(
                               color: AppColors.jet,
-                              borderRadius: BorderRadius.circular(12),
+                              border: Border.all(width: 0.5),
+                              borderRadius: BorderRadius.circular(6),
                             ),
-                            child: const Icon(
-                              Icons.visibility_outlined,
-                              color: AppColors.orangeYellowCrayola,
-                              size: 20,
+                            child: Text(
+                              keyword,
+                              style: AppTextStyles.bodyText.copyWith(
+                                fontSize: 11,
+                                color: AppColors.orangeYellowCrayola,
+                              ),
                             ),
                           ),
-                        ),
-                      ),
-                    ),
-                  ],
+                        )
+                        .toList(),
+                  ),
                 ),
-              ),
-            ),
-            const SizedBox(height: 15),
-            Padding(
-              padding: const EdgeInsets.only(left: 10),
-              child: Text(
-                widget.project.title,
-                style: AppTextStyles.h4.copyWith(
-                  fontSize: 15,
-                  fontWeight: FontWeight.w400,
+              ],
+              if (widget.project.links != null &&
+                  widget.project.links!.isNotEmpty) ...[
+                const SizedBox(height: 12),
+                Padding(
+                  padding: const EdgeInsets.only(left: 10, right: 10),
+                  child: Wrap(
+                    spacing: 10,
+                    runSpacing: 8,
+                    children: widget.project.links!
+                        .map(
+                          (link) => MouseRegion(
+                            cursor: SystemMouseCursors.click,
+                            child: GestureDetector(
+                              onTap: () async {
+                                if (link.url != '#') {
+                                  if (await canLaunchUrl(Uri.parse(link.url))) {
+                                    await launchUrl(Uri.parse(link.url));
+                                  }
+                                }
+                              },
+                              child: Container(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 10,
+                                  vertical: 6,
+                                ),
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                    color: AppColors.orangeYellowCrayola,
+                                  ),
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    if (link.icon != null)
+                                      Padding(
+                                        padding: const EdgeInsets.only(
+                                          right: 6,
+                                        ),
+                                        child: SizedBox(
+                                          width: 14,
+                                          height: 14,
+                                          child: link.icon!.contains('svg')
+                                              ? SvgPicture.asset(
+                                                  link.icon!,
+                                                  width: 14,
+                                                  height: 14,
+                                                  colorFilter:
+                                                      const ColorFilter.mode(
+                                                        AppColors
+                                                            .orangeYellowCrayola,
+                                                        BlendMode.srcIn,
+                                                      ),
+                                                  placeholderBuilder: (context) {
+                                                    return const Icon(
+                                                      Icons.link,
+                                                      size: 14,
+                                                      color: AppColors
+                                                          .orangeYellowCrayola,
+                                                    );
+                                                  },
+                                                )
+                                              : Image.asset(
+                                                  link.icon!,
+                                                  color: AppColors
+                                                      .orangeYellowCrayola,
+                                                  errorBuilder: (_, _, _) =>
+                                                      const Icon(
+                                                        Icons.link,
+                                                        size: 14,
+                                                        color: AppColors
+                                                            .orangeYellowCrayola,
+                                                      ),
+                                                ),
+                                        ),
+                                      ),
+                                    Text(
+                                      link.name,
+                                      style: AppTextStyles.bodyText.copyWith(
+                                        fontSize: 13,
+                                        color: AppColors.orangeYellowCrayola,
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        )
+                        .toList(),
+                  ),
                 ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 10),
-              child: Text(
-                widget.project.category,
-                style: AppTextStyles.bodyText.copyWith(
-                  color: AppColors.lightGray70,
-                ),
-              ),
-            ),
-          ],
+              ],
+            ],
+          ),
         ),
       ),
     );

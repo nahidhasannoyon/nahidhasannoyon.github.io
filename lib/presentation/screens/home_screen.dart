@@ -3,12 +3,13 @@ import 'package:nahid_hasan_noyon/core/theme/app_theme.dart';
 import 'package:nahid_hasan_noyon/core/utils/cursor_service.dart';
 import 'package:nahid_hasan_noyon/core/utils/responsive.dart';
 import 'package:nahid_hasan_noyon/presentation/pages/about/about_page.dart';
-import 'package:nahid_hasan_noyon/presentation/pages/blog/blog_page.dart';
 import 'package:nahid_hasan_noyon/presentation/pages/contact/contact_page.dart';
 import 'package:nahid_hasan_noyon/presentation/pages/education/education_page.dart';
-import 'package:nahid_hasan_noyon/presentation/pages/professional_experience/professional_experience_page.dart';
+import 'package:nahid_hasan_noyon/presentation/pages/experience/experience_page.dart';
+import 'package:nahid_hasan_noyon/presentation/pages/licenses_certifications/licenses_certifications_page.dart';
 import 'package:nahid_hasan_noyon/presentation/pages/projects/projects_page.dart';
 import 'package:nahid_hasan_noyon/presentation/pages/skills/skills_page.dart';
+import 'package:nahid_hasan_noyon/presentation/widgets/footer/footer.dart';
 import 'package:nahid_hasan_noyon/presentation/widgets/navbar/navbar.dart';
 import 'package:nahid_hasan_noyon/presentation/widgets/sidebar/sidebar.dart';
 
@@ -23,12 +24,12 @@ class _HomeScreenState extends State<HomeScreen> {
   int _selectedPageIndex = 0;
 
   final List<Widget> _pages = const [
-    ProjectsPage(),
-    ProfessionalExperiencePage(),
     AboutPage(),
-    BlogPage(),
-    EducationPage(),
+    ExperiencePage(),
+    ProjectsPage(),
     SkillsPage(),
+    EducationPage(),
+    LicensesCertificationsPage(),
     ContactPage(),
   ];
 
@@ -49,90 +50,108 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget _buildLargeDesktopLayout() {
-    return Center(
-      child: ConstrainedBox(
-        constraints: const BoxConstraints(maxWidth: 1300),
-        child: Padding(
-          padding: const EdgeInsets.only(bottom: 30, left: 15, right: 15),
-          child: Column(
-            children: [
-              MouseRegion(
-                onEnter: (_) => disableCursor(),
-                onExit: (_) => enableCursor(),
-                child: _buildDesktopNavBar(),
-              ),
-              const SizedBox(height: 15),
-              Expanded(
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+    return Column(
+      children: [
+        Expanded(
+          child: Center(
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(maxWidth: 1300),
+              child: Padding(
+                padding: const EdgeInsets.only(bottom: 30, left: 15, right: 15),
+                child: Column(
                   children: [
-                    // Sidebar
                     MouseRegion(
                       onEnter: (_) => disableCursor(),
                       onExit: (_) => enableCursor(),
-                      child: const SizedBox(width: 280, child: Sidebar()),
+                      child: _buildDesktopNavBar(),
                     ),
-                    const SizedBox(width: 25),
-                    // Main content
+                    const SizedBox(height: 15),
                     Expanded(
-                      child: MouseRegion(
-                        onEnter: (_) => disableCursor(),
-                        onExit: (_) => enableCursor(),
-                        child: Stack(children: [_buildMainContent()]),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          // Sidebar
+                          MouseRegion(
+                            onEnter: (_) => disableCursor(),
+                            onExit: (_) => enableCursor(),
+                            child: const SizedBox(width: 280, child: Sidebar()),
+                          ),
+                          const SizedBox(width: 25),
+                          // Main content
+                          Expanded(
+                            child: MouseRegion(
+                              onEnter: (_) => disableCursor(),
+                              onExit: (_) => enableCursor(),
+                              child: Stack(children: [_buildMainContent()]),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   ],
                 ),
               ),
-            ],
+            ),
           ),
         ),
-      ),
+        const Footer(),
+      ],
     );
   }
 
   Widget _buildMobileTabletLayout(bool isDesktopOrLarger) {
-    return SingleChildScrollView(
-      child: Padding(
-        padding: EdgeInsets.symmetric(
-          horizontal: 12,
-          vertical: Responsive.getValue(context, mobile: 15, tablet: 60),
-        ),
-        child: Center(
-          child: ConstrainedBox(
-            constraints: BoxConstraints(
-              maxWidth: Responsive.getValue(
-                context,
-                mobile: double.infinity,
-                tablet: 520,
-                desktop: 950,
+    return Column(
+      children: [
+        Expanded(
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: 12,
+                vertical: Responsive.getValue(context, mobile: 15, tablet: 60),
               ),
-            ),
-            child: Column(
-              children: [
-                MouseRegion(
-                  onEnter: (_) => disableCursor(),
-                  onExit: (_) => enableCursor(),
-                  child: const Sidebar(),
-                ),
-                SizedBox(
-                  height: Responsive.getValue(context, mobile: 15, tablet: 30),
-                ),
-                MouseRegion(
-                  onEnter: (_) => disableCursor(),
-                  onExit: (_) => enableCursor(),
-                  child: Stack(
+              child: Center(
+                child: ConstrainedBox(
+                  constraints: BoxConstraints(
+                    maxWidth: Responsive.getValue(
+                      context,
+                      mobile: double.infinity,
+                      tablet: 520,
+                      desktop: 950,
+                    ),
+                  ),
+                  child: Column(
                     children: [
-                      _buildMainContent(),
-                      if (isDesktopOrLarger) _buildDesktopNavBar(),
+                      MouseRegion(
+                        onEnter: (_) => disableCursor(),
+                        onExit: (_) => enableCursor(),
+                        child: const Sidebar(),
+                      ),
+                      SizedBox(
+                        height: Responsive.getValue(
+                          context,
+                          mobile: 15,
+                          tablet: 30,
+                        ),
+                      ),
+                      MouseRegion(
+                        onEnter: (_) => disableCursor(),
+                        onExit: (_) => enableCursor(),
+                        child: Stack(
+                          children: [
+                            _buildMainContent(),
+                            if (isDesktopOrLarger) _buildDesktopNavBar(),
+                          ],
+                        ),
+                      ),
                     ],
                   ),
                 ),
-              ],
+              ),
             ),
           ),
         ),
-      ),
+        const Footer(),
+      ],
     );
   }
 
@@ -147,9 +166,27 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       clipBehavior: Clip.antiAlias,
       child: AnimatedSwitcher(
-        duration: const Duration(milliseconds: 300),
+        duration: const Duration(milliseconds: 400),
+        switchInCurve: Curves.easeInOut,
+        switchOutCurve: Curves.easeInOut,
         transitionBuilder: (child, animation) {
-          return FadeTransition(opacity: animation, child: child);
+          final offsetAnimation =
+              Tween<Offset>(
+                begin: const Offset(0.1, 0.0),
+                end: Offset.zero,
+              ).animate(
+                CurvedAnimation(parent: animation, curve: Curves.easeOutCubic),
+              );
+
+          final fadeAnimation = CurvedAnimation(
+            parent: animation,
+            curve: Curves.easeIn,
+          );
+
+          return FadeTransition(
+            opacity: fadeAnimation,
+            child: SlideTransition(position: offsetAnimation, child: child),
+          );
         },
         child: KeyedSubtree(
           key: ValueKey(_selectedPageIndex),

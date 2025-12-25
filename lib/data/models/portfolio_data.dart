@@ -1,3 +1,9 @@
+class LanguageItem {
+  const LanguageItem({required this.name, required this.proficiency});
+  final String name;
+  final String proficiency;
+}
+
 class PersonInfo {
   const PersonInfo({
     required this.name,
@@ -7,6 +13,7 @@ class PersonInfo {
     required this.phone,
     required this.location,
     required this.socialLinks,
+    this.languages,
   });
   final String name;
   final String title;
@@ -15,6 +22,7 @@ class PersonInfo {
   final String phone;
   final String location;
   final List<SocialLink> socialLinks;
+  final List<LanguageItem>? languages;
 }
 
 class SocialLink {
@@ -59,8 +67,8 @@ class ClientItem {
   final String url;
 }
 
-class ProfessionalTimelineItem {
-  const ProfessionalTimelineItem({
+class ExperienceTimelineItem {
+  const ExperienceTimelineItem({
     required this.company,
     required this.location,
     required this.role,
@@ -93,6 +101,13 @@ class SkillItem {
   final int percentage;
 }
 
+class ProjectLink {
+  const ProjectLink({required this.name, required this.url, this.icon});
+  final String name;
+  final String url;
+  final String? icon;
+}
+
 class TechnicalSkillCategory {
   const TechnicalSkillCategory({required this.category, required this.skills});
   final String category;
@@ -103,28 +118,35 @@ class ProjectItem {
   const ProjectItem({
     required this.title,
     required this.category,
-    required this.imageUrl,
-    this.url,
+    this.imageUrls,
+    this.description,
+    this.keywords,
+    this.links,
   });
   final String title;
   final String category;
-  final String imageUrl;
-  final String? url;
+  final List<String>? imageUrls;
+  final String? description;
+  final List<String>? keywords;
+  final List<ProjectLink>? links;
 }
-
-class BlogPost {
-  const BlogPost({
+class CertificationItem {
+  const CertificationItem({
     required this.title,
+    required this.issuer,
+    required this.issuerLogo,
     required this.category,
-    required this.date,
-    required this.imageUrl,
-    required this.excerpt,
-    this.url,
+    this.imageUrl,
+    this.issueDate,
+    this.credentialLink,
+    this.skills,
   });
   final String title;
+  final String issuer;
+  final String issuerLogo;
   final String category;
-  final String date;
-  final String imageUrl;
-  final String excerpt;
-  final String? url;
+  final String? imageUrl;
+  final String? issueDate;
+  final ProjectLink? credentialLink;
+  final List<String>? skills;
 }
