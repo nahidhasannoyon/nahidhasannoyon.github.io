@@ -93,6 +93,13 @@ class SkillItem {
   final int percentage;
 }
 
+class ProjectLink {
+  const ProjectLink({required this.name, required this.url, this.icon});
+  final String name;
+  final String url;
+  final String? icon;
+}
+
 class TechnicalSkillCategory {
   const TechnicalSkillCategory({required this.category, required this.skills});
   final String category;
@@ -103,13 +110,17 @@ class ProjectItem {
   const ProjectItem({
     required this.title,
     required this.category,
-    required this.imageUrl,
-    this.url,
+    this.imageUrls,
+    this.description,
+    this.keywords,
+    this.links,
   });
   final String title;
   final String category;
-  final String imageUrl;
-  final String? url;
+  final List<String>? imageUrls;
+  final String? description;
+  final List<String>? keywords;
+  final List<ProjectLink>? links;
 }
 
 class BlogPost {

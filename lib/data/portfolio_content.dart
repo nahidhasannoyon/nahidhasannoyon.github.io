@@ -294,56 +294,135 @@ class PortfolioContent {
 
   static const List<String> projectCategories = [
     'All',
-    'Web design',
     'Applications',
     'Web development',
+    'Packages',
   ];
 
   static const List<ProjectItem> projects = [
     ProjectItem(
       title: 'CareConnect App',
       category: 'Applications',
-      imageUrl: 'assets/images/project-1.jpg',
+
+      imageUrls: [
+        'https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=600&h=400&fit=crop',
+        'https://images.unsplash.com/photo-1579154204601-01d82b27ebcc?w=600&h=400&fit=crop',
+        'https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=600&h=400&fit=crop',
+      ],
+      description:
+          'A comprehensive healthcare application connecting patients with medical professionals and enabling appointment scheduling, medical record management, and telemedicine consultations.',
+      keywords: ['Flutter', 'Healthcare', 'Firebase', 'REST API'],
+      links: [
+        ProjectLink(
+          name: 'GitHub',
+          url: 'https://github.com/nahidhasannoyon/careconnect',
+          icon: 'assets/icons/github.svg',
+        ),
+      ],
     ),
     ProjectItem(
       title: 'SmartAttendance Mobile App',
       category: 'Applications',
-      imageUrl: 'assets/images/project-2.png',
+
+      imageUrls: [
+        'https://images.unsplash.com/photo-1531482615713-2afd69097998?w=600&h=400&fit=crop',
+        'https://images.unsplash.com/photo-1552664730-d307ca884978?w=600&h=400&fit=crop',
+        'https://images.unsplash.com/photo-1552965736-5a6370d0d17b?w=600&h=400&fit=crop',
+      ],
+      description:
+          'An intelligent attendance tracking system using biometric recognition and real-time synchronization for schools and organizations with comprehensive reporting features.',
+      keywords: ['Flutter', 'Biometrics', 'Real-time Sync', 'Analytics'],
     ),
     ProjectItem(
       title: 'ePolli App',
       category: 'Applications',
-      imageUrl: 'assets/images/project-3.jpg',
+
+      imageUrls: [
+        'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=600&h=400&fit=crop',
+        'https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=600&h=400&fit=crop',
+        'https://images.unsplash.com/photo-1454496522488-7a8e488e8606?w=600&h=400&fit=crop',
+      ],
+      description:
+          'A multi-vendor e-commerce platform enabling seamless shopping experience with product catalog, cart management, secure payment integration, and order tracking.',
+      keywords: ['Flutter', 'E-commerce', 'Payment Gateway', 'GetX'],
     ),
     ProjectItem(
       title: 'ePolli Shohoz Khamari App',
       category: 'Applications',
-      imageUrl: 'assets/images/project-4.png',
+
+      imageUrls: [
+        'https://images.unsplash.com/photo-1555939594-58d7cb561231?w=600&h=400&fit=crop',
+        'https://images.unsplash.com/photo-1484488167118-3a23c0b7b8a3?w=600&h=400&fit=crop',
+        'https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=600&h=400&fit=crop',
+      ],
+      description:
+          'A specialized e-commerce application for groceries and daily essentials with real-time inventory management, fast delivery integration, and consumer-friendly interface.',
+      keywords: ['Flutter', 'E-commerce', 'Grocery', 'Delivery Integration'],
     ),
     ProjectItem(
       title: 'GrowBook App',
       category: 'Applications',
-      imageUrl: 'assets/images/project-5.png',
+
+      imageUrls: [
+        'https://images.unsplash.com/photo-1530836369250-ef72a3f5cda8?w=600&h=400&fit=crop',
+        'https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=600&h=400&fit=crop',
+        'https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=600&h=400&fit=crop',
+      ],
+      description:
+          'An agricultural technology platform designed to help farmers track crops, manage resources, access market prices, and connect with agricultural experts for better yields.',
+      keywords: ['Flutter', 'AgriTech', 'Data Analytics', 'IoT Integration'],
     ),
     ProjectItem(
       title: 'ekDeal APP',
       category: 'Applications',
-      imageUrl: 'assets/images/project-6.png',
+
+      imageUrls: [
+        'https://images.unsplash.com/photo-1552288049-bebda541e8ee?w=600&h=400&fit=crop',
+        'https://images.unsplash.com/photo-1556740722-97cbbba6db3b?w=600&h=400&fit=crop',
+        'https://images.unsplash.com/photo-1564684853211-8db1bdf9c5f4?w=600&h=400&fit=crop',
+      ],
+      description:
+          'A dynamic deals and discounts marketplace featuring real-time offers, vendor collaboration, user-friendly deal discovery, and secure transaction management.',
+      keywords: ['Flutter', 'E-commerce', 'Offers', 'Provider'],
     ),
     ProjectItem(
       title: 'ePolli Multi-vendor App',
       category: 'Applications',
-      imageUrl: 'assets/images/project-7.png',
+
+      imageUrls: [
+        'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&h=400&fit=crop',
+        'https://images.unsplash.com/photo-1452587925148-ce544e77e70d?w=600&h=400&fit=crop',
+        'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=600&h=400&fit=crop',
+      ],
+      description:
+          'A scalable multi-vendor platform supporting hundreds of sellers with individual stores, inventory management, commission handling, and comprehensive admin dashboard.',
+      keywords: ['Flutter', 'Multi-vendor', 'Firestore', 'Clean Architecture'],
     ),
     ProjectItem(
       title: 'Leadvala',
       category: 'Applications',
-      imageUrl: 'assets/images/project-8.jpg',
+
+      imageUrls: [
+        'https://images.unsplash.com/photo-1552664730-d307ca884978?w=600&h=400&fit=crop',
+        'https://images.unsplash.com/photo-1556740722-97cbbba6db3b?w=600&h=400&fit=crop',
+        'https://images.unsplash.com/photo-1552965736-5a6370d0d17b?w=600&h=400&fit=crop',
+      ],
+      description:
+          'A lead generation and management platform featuring call recording, automatic lead assignment, analytics dashboard, and CRM integration for sales teams.',
+      keywords: ['Flutter', 'CRM', 'Call Recording', 'Lead Management'],
     ),
     ProjectItem(
       title: 'BAIUST Transport Schedule App',
       category: 'Applications',
-      imageUrl: 'assets/images/project-9.png',
+
+      imageUrls: [
+        'https://images.unsplash.com/photo-1576092160562-40f96b0fbbf0?w=600&h=400&fit=crop',
+        'https://images.unsplash.com/photo-1464207687429-7505649dae38?w=600&h=400&fit=crop',
+        'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=600&h=400&fit=crop',
+      ],
+      description:
+          'A university transport management system with digital verification for bus travel, real-time tracking, schedule management, and attendance integration for students.',
+      keywords: ['Flutter', 'Transportation', 'Digital Verification', 'IoT'],
     ),
   ];
 
