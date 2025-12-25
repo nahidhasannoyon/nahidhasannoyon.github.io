@@ -16,7 +16,6 @@ class NavBar extends StatelessWidget {
     'Projects',
     'Professional Experience',
     'About',
-    'Blog',
     'Education',
     'Skills',
     'Contact',

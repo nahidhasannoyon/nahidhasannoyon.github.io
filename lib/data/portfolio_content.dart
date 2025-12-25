@@ -479,7 +479,7 @@ class PortfolioContent {
 
   static const List<String> certificationCategories = [
     'All',
-    'Development',
+    'Dart & Flutter',
     'Version Control',
     'AI & Tools',
   ];
@@ -488,154 +488,178 @@ class PortfolioContent {
     CertificationItem(
       title: 'Introduction to Git and GitHub',
       issuer: 'Google',
-      issuerLogo: 'assets/icons/google.svg',
+      issuerLogo: 'assets/images/google.png',
       category: 'Version Control',
       imageUrl:
-          'https://images.unsplash.com/photo-1618401471353-b98afee0b2eb?w=600&h=400&fit=crop',
+          'assets/images/certificates/Courses/Git/Introduction to Git and GitHub Certificate.jpg',
       issueDate: 'Oct 2024',
-      skills: ['Version Control (Git, GitHub)'],
-      credentialLink: ProjectLink(name: 'Show credential', url: '#'),
+      skills: ['Git', 'GitHub'],
+      credentialLink: ProjectLink(
+        name: 'Show credential',
+        url:
+            'https://www.coursera.org/account/accomplishments/records/WLI4XD6XBYZE',
+      ),
     ),
     CertificationItem(
       title: 'ChatGPT Plugins: The Complete Guide',
       issuer: 'Udemy',
-      issuerLogo: 'assets/icons/udemy.svg',
+      issuerLogo: 'assets/images/udemy.png',
       category: 'AI & Tools',
       imageUrl:
-          'https://images.unsplash.com/photo-1677442136019-21780ecad995?w=600&h=400&fit=crop',
+          'assets/images/certificates/Courses/ChatGPT/ChatGPT Plugins - The Complete Guide.jpg',
       issueDate: 'Oct 2023',
-      credentialLink: ProjectLink(name: 'Show credential', url: '#'),
+      skills: ['ChatGPT', 'AI', 'Prompt Engineering', 'API Integration'],
+      credentialLink: ProjectLink(
+        name: 'Show credential',
+        url:
+            'https://www.udemy.com/certificate/UC-cfbf48aa-a01b-4a4f-b803-7f762cc3e65a/',
+      ),
     ),
     CertificationItem(
       title: 'Learn Flutter GetX Course 2023',
       issuer: 'Udemy',
-      issuerLogo: 'assets/icons/udemy.svg',
-      category: 'Development',
+      issuerLogo: 'assets/images/udemy.png',
+      category: 'Dart & Flutter',
       imageUrl:
-          'https://images.unsplash.com/photo-1551650975-87deedd944c3?w=600&h=400&fit=crop',
+          'assets/images/certificates/Courses/Flutter/Learn Flutter GetX Course 2023.jpg',
       issueDate: 'Oct 2023',
       skills: [
         'Dart',
         'Dependency Injection',
-        'Cross-platform Development',
         'GetX',
         'Flutter',
         'State Management',
       ],
-      credentialLink: ProjectLink(name: 'Show credential', url: '#'),
+      credentialLink: ProjectLink(
+        name: 'Show credential',
+        url:
+            'https://www.udemy.com/certificate/UC-c319b14e-de38-432d-9fc7-49117bb86692/',
+      ),
     ),
     CertificationItem(
       title: 'Mastering the Fundamentals of ChatGPT and AI Tools',
       issuer: 'Udemy',
-      issuerLogo: 'assets/icons/udemy.svg',
+      issuerLogo: 'assets/images/udemy.png',
       category: 'AI & Tools',
       imageUrl:
-          'https://images.unsplash.com/photo-1655720406770-12ea329b5b61?w=600&h=400&fit=crop',
+          'assets/images/certificates/Courses/ChatGPT/Mastering the Fundamentals of ChatGPT and AI Tools.jpg',
       issueDate: 'Oct 2023',
-      credentialLink: ProjectLink(name: 'Show credential', url: '#'),
-    ),
-    CertificationItem(
-      title: 'Flutter & Dart - The Complete Flutter App Development Course',
-      issuer: 'Udemy',
-      issuerLogo: 'assets/icons/udemy.svg',
-      category: 'Development',
-      imageUrl:
-          'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=600&h=400&fit=crop',
-      issueDate: 'Dec 2022',
-      skills: [
-        'Dart',
-        'Cross-platform Development',
-        'Flutter',
-        'State Management',
-      ],
-      credentialLink: ProjectLink(name: 'Show credential', url: '#'),
-    ),
-    CertificationItem(
-      title: 'Dart and Flutter: The Complete Developer\'s Guide',
-      issuer: 'Udemy',
-      issuerLogo: 'assets/icons/udemy.svg',
-      category: 'Development',
-      imageUrl:
-          'https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=600&h=400&fit=crop',
-      issueDate: 'Nov 2022',
-      skills: [
-        'Dart',
-        'Cross-platform Development',
-        'Flutter',
-        'State Management',
-      ],
-      credentialLink: ProjectLink(name: 'Show credential', url: '#'),
-    ),
-    CertificationItem(
-      title: 'Flutter - Firebase - MySQL Multi-store App (Full - Deep)',
-      issuer: 'Udemy',
-      issuerLogo: 'assets/icons/udemy.svg',
-      category: 'Development',
-      imageUrl:
-          'https://images.unsplash.com/photo-1484417894907-623942c8ee29?w=600&h=400&fit=crop',
-      issueDate: 'Nov 2022',
-      skills: [
-        'Dart',
-        'Cross-platform Development',
-        'Firebase',
-        'Flutter',
-        'State Management',
-      ],
-      credentialLink: ProjectLink(name: 'Show credential', url: '#'),
-    ),
-    CertificationItem(
-      title: 'The Complete 2021 Flutter Development Bootcamp with Dart',
-      issuer: 'Udemy',
-      issuerLogo: 'assets/icons/udemy.svg',
-      category: 'Development',
-      imageUrl:
-          'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=600&h=400&fit=crop',
-      issueDate: 'Oct 2022',
-      skills: [
-        'Dart',
-        'Cross-platform Development',
-        'Flutter',
-        'State Management',
-      ],
-      credentialLink: ProjectLink(name: 'Show credential', url: '#'),
-    ),
-    CertificationItem(
-      title: 'The Git & GitHub Bootcamp',
-      issuer: 'Udemy',
-      issuerLogo: 'assets/icons/udemy.svg',
-      category: 'Version Control',
-      imageUrl:
-          'https://images.unsplash.com/photo-1556075798-4825dfaaf498?w=600&h=400&fit=crop',
-      issueDate: 'Oct 2022',
-      skills: ['Version Control (Git, GitHub)'],
-      credentialLink: ProjectLink(name: 'Show credential', url: '#'),
+      skills: ['ChatGPT', 'AI Tools', 'Prompt Engineering', 'Productivity'],
+      credentialLink: ProjectLink(
+        name: 'Show credential',
+        url:
+            'https://www.udemy.com/certificate/UC-83486d73-81d2-4951-bc98-8c24ba5cc68c/',
+      ),
     ),
     CertificationItem(
       title: 'GetX Flutter App Development',
       issuer: 'MindLuster',
-      issuerLogo: 'assets/icons/mindluster.svg',
-      category: 'Development',
+      issuerLogo: 'assets/images/mind_luster.png',
+      category: 'Dart & Flutter',
+      issueDate: 'May 2023',
       imageUrl:
-          'https://images.unsplash.com/photo-1504639725590-34d0984388bd?w=600&h=400&fit=crop',
+          'assets/images/certificates/Courses/Flutter/GetX Flutter App Development.jpg',
       skills: [
         'Dart',
         'Dependency Injection',
-        'Cross-platform Development',
         'GetX',
         'Flutter',
         'State Management',
       ],
-      credentialLink: ProjectLink(name: 'Show credential', url: '#'),
+      credentialLink: ProjectLink(
+        name: 'Show credential',
+        url: 'https://www.mindluster.com/certified/check/2692793577',
+      ),
+    ),
+    CertificationItem(
+      title: 'Flutter & Dart - The Complete Flutter App Development Course',
+      issuer: 'Udemy',
+      issuerLogo: 'assets/images/udemy.png',
+      category: 'Dart & Flutter',
+      imageUrl:
+          'assets/images/certificates/Courses/Flutter/Flutter & Dart - The Complete Flutter App Development Course.jpg',
+      issueDate: 'Dec 2022',
+      skills: ['Dart', 'Flutter', 'State Management'],
+      credentialLink: ProjectLink(
+        name: 'Show credential',
+        url:
+            'https://www.udemy.com/certificate/UC-42e3ba4c-7e61-4ee2-9156-5d331ec11cd8/',
+      ),
+    ),
+    CertificationItem(
+      title: 'Dart and Flutter: The Complete Developer\'s Guide',
+      issuer: 'Udemy',
+      issuerLogo: 'assets/images/udemy.png',
+      category: 'Dart & Flutter',
+      imageUrl:
+          "assets/images/certificates/Courses/Flutter/Dart and Flutter - The Complete Developer's Guide.jpg",
+      issueDate: 'Nov 2022',
+      skills: ['Dart', 'Flutter', 'State Management'],
+      credentialLink: ProjectLink(
+        name: 'Show credential',
+        url:
+            'https://www.udemy.com/certificate/UC-efcd343c-df68-4a4e-acec-240a52e3e62b/',
+      ),
+    ),
+    CertificationItem(
+      title: 'Flutter - Firebase - MySQL Multi-store App (Full - Deep)',
+      issuer: 'Udemy',
+      issuerLogo: 'assets/images/udemy.png',
+      category: 'Dart & Flutter',
+      imageUrl:
+          'assets/images/certificates/Courses/Flutter/Flutter - Firebase - MySQL Multi-store App (Full - Deep).jpg',
+      issueDate: 'Nov 2022',
+      skills: ['Dart', 'Firebase', 'Flutter', 'State Management'],
+      credentialLink: ProjectLink(
+        name: 'Show credential',
+        url:
+            'https://www.udemy.com/certificate/UC-139b11e1-2a94-4671-8eaf-c5721b57a477/',
+      ),
+    ),
+    CertificationItem(
+      title: 'The Complete 2021 Flutter Development Bootcamp with Dart',
+      issuer: 'Udemy',
+      issuerLogo: 'assets/images/udemy.png',
+      category: 'Dart & Flutter',
+      imageUrl:
+          'assets/images/certificates/Courses/Flutter/The Complete Flutter Development Bootcamp with Dart.jpg',
+      issueDate: 'Oct 2022',
+      skills: ['Dart', 'Flutter', 'State Management'],
+      credentialLink: ProjectLink(
+        name: 'Show credential',
+        url:
+            'https://www.udemy.com/certificate/UC-a5d0fcff-29e6-45ff-92a0-454fc03509c7/',
+      ),
+    ),
+    CertificationItem(
+      title: 'The Git & GitHub Bootcamp',
+      issuer: 'Udemy',
+      issuerLogo: 'assets/images/udemy.png',
+      category: 'Version Control',
+      imageUrl:
+          'assets/images/certificates/Courses/Git/The Git & GitHub Bootcamp.jpg',
+      issueDate: 'Oct 2022',
+      skills: ['Git', 'GitHub'],
+      credentialLink: ProjectLink(
+        name: 'Show credential',
+        url:
+            'https://www.udemy.com/certificate/UC-a29331dd-9144-4e6f-b75d-c31b82bd5516/',
+      ),
     ),
     CertificationItem(
       title: 'Git Going Fast One Hour Git Crash Course Certificate',
       issuer: 'Udemy',
-      issuerLogo: 'assets/icons/udemy.svg',
+      issuerLogo: 'assets/images/udemy.png',
       category: 'Version Control',
+      issueDate: 'July 2022',
       imageUrl:
-          'https://images.unsplash.com/photo-1556761175-b413da4baf72?w=600&h=400&fit=crop',
-      skills: ['Version Control (Git, GitHub)'],
-      credentialLink: ProjectLink(name: 'Show credential', url: '#'),
+          'assets/images/certificates/Courses/Git/Git Going Fast One Hour Git Crash Course Certificate.jpg',
+      skills: ['Git', 'GitHub'],
+      credentialLink: ProjectLink(
+        name: 'Show credential',
+        url:
+            'https://www.udemy.com/certificate/UC-9ce99ead-30bd-47ff-8b10-725ef76ccbbe/',
+      ),
     ),
   ];
 }

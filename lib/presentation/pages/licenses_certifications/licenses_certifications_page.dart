@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nahid_hasan_noyon/core/theme/app_theme.dart';
+import 'package:nahid_hasan_noyon/core/utils/cursor_service.dart';
 import 'package:nahid_hasan_noyon/core/utils/responsive.dart';
 import 'package:nahid_hasan_noyon/data/models/portfolio_data.dart';
 import 'package:nahid_hasan_noyon/data/portfolio_content.dart';
@@ -267,26 +268,85 @@ class _CertificationCard extends StatelessWidget {
         children: [
           // Certificate Image
           if (certification.imageUrl != null) ...[
-            ClipRRect(
-              borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(16),
-                topRight: Radius.circular(16),
-              ),
-              child: Image.network(
-                certification.imageUrl!,
-                height: 180,
-                width: double.infinity,
-                fit: BoxFit.cover,
-                errorBuilder: (_, _, _) => Container(
-                  height: 180,
-                  color: AppColors.jet,
-                  child: const Icon(
-                    Icons.workspace_premium,
-                    color: AppColors.lightGray,
-                    size: 50,
+            Stack(
+              children: [
+                ClipRRect(
+                  borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(16),
+                    topRight: Radius.circular(16),
+                  ),
+                  child: Image.network(
+                    certification.imageUrl!,
+                    height: 180,
+                    width: double.infinity,
+                    fit: BoxFit.cover,
+                    errorBuilder: (_, _, _) => Container(
+                      height: 180,
+                      color: AppColors.jet,
+                      child: const Icon(
+                        Icons.workspace_premium,
+                        color: AppColors.lightGray,
+                        size: 50,
+                      ),
+                    ),
                   ),
                 ),
-              ),
+                Positioned(
+                  top: 8,
+                  right: 8,
+                  child: IconButton(
+                    icon: const Icon(
+                      Icons.fullscreen,
+                      color: AppColors.smokyBlack,
+                      size: 20,
+                    ),
+                    onPressed: () {
+                      showDialog(
+                        context: context,
+                        builder: (context) => Dialog(
+                          backgroundColor: Colors.transparent,
+                          child: MouseRegion(
+                            onEnter: (_) => disableCursor(),
+                            onExit: (_) => enableCursor(),
+                            child: Stack(
+                              children: [
+                                InteractiveViewer(
+                                  child: Image.network(
+                                    certification.imageUrl!,
+                                    fit: BoxFit.contain,
+                                    errorBuilder: (_, _, _) => Container(
+                                      height: 300,
+                                      color: AppColors.jet,
+                                      child: const Icon(
+                                        Icons.workspace_premium,
+                                        color: AppColors.lightGray,
+                                        size: 100,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Positioned(
+                                  top: 10,
+                                  right: 10,
+                                  child: IconButton(
+                                    icon: const Icon(
+                                      Icons.close,
+                                      color: AppColors.smokyBlack,
+                                      size: 30,
+                                    ),
+                                    onPressed: () =>
+                                        Navigator.of(context).pop(),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+              ],
             ),
           ],
           Expanded(
@@ -305,14 +365,30 @@ class _CertificationCard extends StatelessWidget {
                           color: AppColors.jet,
                           borderRadius: BorderRadius.circular(8),
                         ),
-                        child: Center(
-                          child: Text(
-                            certification.issuer.substring(0, 1),
-                            style: AppTextStyles.h3.copyWith(
-                              color: AppColors.orangeYellowCrayola,
-                            ),
-                          ),
-                        ),
+                        child: certification.issuerLogo != ''
+                            ? Padding(
+                                padding: const EdgeInsets.all(6.0),
+                                child: Image.asset(
+                                  certification.issuerLogo,
+                                  fit: BoxFit.contain,
+                                  errorBuilder: (_, _, _) => Center(
+                                    child: Text(
+                                      certification.issuer.substring(0, 1),
+                                      style: AppTextStyles.h3.copyWith(
+                                        color: AppColors.orangeYellowCrayola,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              )
+                            : Center(
+                                child: Text(
+                                  certification.issuer.substring(0, 1),
+                                  style: AppTextStyles.h3.copyWith(
+                                    color: AppColors.orangeYellowCrayola,
+                                  ),
+                                ),
+                              ),
                       ),
                       const SizedBox(width: 12),
                       Expanded(
@@ -334,7 +410,7 @@ class _CertificationCard extends StatelessWidget {
                       fontSize: 16,
                       fontWeight: FontWeight.w500,
                     ),
-                    maxLines: 2,
+                    maxLines: 3,
                     overflow: TextOverflow.ellipsis,
                   ),
                   const SizedBox(height: 10),
@@ -368,7 +444,6 @@ class _CertificationCard extends StatelessWidget {
                       spacing: 6,
                       runSpacing: 4,
                       children: certification.skills!
-                          .take(3)
                           .map(
                             (skill) => Container(
                               padding: const EdgeInsets.symmetric(
