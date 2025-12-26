@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:nahid_hasan_noyon/core/theme/app_theme.dart';
 import 'package:nahid_hasan_noyon/core/utils/enums.dart';
 import 'package:nahid_hasan_noyon/core/utils/responsive.dart';
 import 'package:nahid_hasan_noyon/core/widgets/common/common_widgets.dart';
+import 'package:nahid_hasan_noyon/core/widgets/common/smart_image_widget.dart';
 import 'package:nahid_hasan_noyon/core/widgets/miscellaneous/experience_pill_widget.dart';
 import 'package:nahid_hasan_noyon/core/widgets/miscellaneous/scrolling_text_widget.dart';
 import 'package:nahid_hasan_noyon/data/models/portfolio_data.dart';
@@ -103,26 +103,15 @@ class _SidebarState extends State<Sidebar> {
       largeDesktop: 150.0,
     );
 
-    return Container(
-      width: size,
+    return SmartImageWidget(
       height: size,
-      decoration: BoxDecoration(
-        gradient: AppColors.bgGradientOnyx,
-        borderRadius: BorderRadius.circular(
-          Responsive.getValue(context, mobile: 20, tablet: 30),
-        ),
+      width: size,
+      source: person.avatarUrl,
+      fit: BoxFit.cover,
+      borderRadius: BorderRadius.circular(
+        Responsive.getValue(context, mobile: 20, tablet: 30),
       ),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(
-          Responsive.getValue(context, mobile: 20, tablet: 30),
-        ),
-        child: Image.asset(
-          person.avatarUrl,
-          fit: BoxFit.cover,
-          errorBuilder: (_, _, _) =>
-              const Icon(Icons.person, size: 50, color: AppColors.white2),
-        ),
-      ),
+      errorWidget: const Icon(Icons.person, size: 50, color: AppColors.white2),
     );
   }
 
@@ -454,20 +443,16 @@ class _SidebarState extends State<Sidebar> {
             onTap: () => _launchUrl(social.url),
             child: MouseRegion(
               cursor: SystemMouseCursors.click,
-              child: social.icon is IconData
-                  ? Icon(
-                      social.icon as IconData,
-                      color: AppColors.lightGray70,
-                      size: 24,
-                    )
-                  : social.icon.contains('svg')
-                  ? SvgPicture.asset(social.icon, width: 24, height: 24)
-                  : Image.asset(
-                      social.icon,
-                      width: 24,
-                      height: 24,
-                      color: AppColors.lightGray70,
-                    ),
+              child: SmartImageWidget(
+                source: social.icon,
+                width: 24,
+                height: 24,
+                errorWidget: const Icon(
+                  Icons.link,
+                  size: 24,
+                  color: AppColors.white2,
+                ),
+              ),
             ),
           ),
         );

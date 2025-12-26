@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:nahid_hasan_noyon/core/theme/app_theme.dart';
 import 'package:nahid_hasan_noyon/core/utils/responsive.dart';
+import 'package:nahid_hasan_noyon/core/widgets/common/common_widgets.dart';
+import 'package:nahid_hasan_noyon/core/widgets/common/smart_image_widget.dart';
 import 'package:nahid_hasan_noyon/data/models/portfolio_data.dart';
 import 'package:nahid_hasan_noyon/data/portfolio_content.dart';
-import 'package:nahid_hasan_noyon/core/widgets/common/common_widgets.dart';
 import 'package:styled_text/styled_text.dart';
 
 class AboutPage extends StatelessWidget {
@@ -46,6 +47,7 @@ class AboutPage extends StatelessWidget {
           padding: const EdgeInsets.only(bottom: 15),
           child: StyledText(
             text: text,
+            textAlign: TextAlign.justify,
             style: AppTextStyles.bodyText,
             tags: {
               'b': StyledTextTag(
@@ -265,14 +267,15 @@ class _ServiceCard extends StatelessWidget {
   }
 
   Widget _buildIcon() {
-    return Container(
+    return SmartImageWidget(
+      source: service.iconPath,
       width: 40,
       height: 40,
-      decoration: BoxDecoration(
-        color: AppColors.orangeYellowCrayola.withValues(alpha: .1),
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: const Icon(
+      padding: const EdgeInsets.all(8),
+      borderRadius: BorderRadius.circular(8),
+      backgroundColor: AppColors.orangeYellowCrayola.withValues(alpha: .1),
+
+      errorWidget: const Icon(
         Icons.design_services,
         color: AppColors.orangeYellowCrayola,
         size: 24,
@@ -296,7 +299,7 @@ class _ServiceCard extends StatelessWidget {
         Text(
           service.description,
           style: AppTextStyles.bodyText,
-          textAlign: isTabletOrLarger ? TextAlign.start : TextAlign.center,
+          textAlign: TextAlign.justify,
           overflow: TextOverflow.ellipsis,
           maxLines: 3,
         ),

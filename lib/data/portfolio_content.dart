@@ -53,19 +53,19 @@ class PortfolioContent {
       title: 'REST API Integration',
       description:
           'Integrating RESTful APIs, WebSockets, and Firebase services for real-time and data-driven apps.',
-      iconPath: 'assets/images/icon-dev.svg',
+      iconPath: 'assets/icons/rest_api.png',
     ),
     ServiceItem(
       title: 'UI/UX Design',
       description:
           'Collaborating with UI/UX teams to deliver pixel-perfect, responsive interfaces.',
-      iconPath: 'assets/images/icon-design.svg',
+      iconPath: 'assets/icons/ui_ux.png',
     ),
     ServiceItem(
       title: 'App Optimization',
       description:
           'Optimizing app performance, state management, and implementing efficient caching strategies.',
-      iconPath: 'assets/images/icon-photo.svg',
+      iconPath: 'assets/icons/app_optimization.png',
     ),
   ];
 
