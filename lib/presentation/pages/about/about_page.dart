@@ -148,6 +148,7 @@ class AboutPage extends StatelessWidget {
             },
           ),
         ),
+        // Add Testimonials section slider
       ],
     );
   }
@@ -318,7 +319,7 @@ class _TestimonialCard extends StatelessWidget {
       clipBehavior: Clip.none,
       children: [
         GradientBox(
-          padding: const EdgeInsets.all(15).copyWith(top: 45),
+          padding: const EdgeInsets.all(15).copyWith(top: 15),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
@@ -352,19 +353,16 @@ class _TestimonialCard extends StatelessWidget {
               borderRadius: BorderRadius.circular(14),
               boxShadow: const [AppShadows.shadow1],
             ),
-            child: ClipRRect(
+            child: SmartImageWidget(
+              source: testimonial.avatarUrl,
+              width: 60,
+              height: 60,
               borderRadius: BorderRadius.circular(14),
-              child: Image.network(
-                'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=60&h=60&fit=crop',
+              errorWidget: Container(
                 width: 60,
                 height: 60,
-                fit: BoxFit.cover,
-                errorBuilder: (_, _, _) => Container(
-                  width: 60,
-                  height: 60,
-                  color: AppColors.jet,
-                  child: const Icon(Icons.person, color: AppColors.lightGray),
-                ),
+                color: AppColors.jet,
+                child: const Icon(Icons.person, color: AppColors.lightGray),
               ),
             ),
           ),
@@ -405,10 +403,12 @@ class _ClientLogoState extends State<_ClientLogo> {
               Colors.transparent,
               BlendMode.saturation,
             ),
-            child: Container(
-              decoration: BoxDecoration(borderRadius: BorderRadius.circular(8)),
-              child: Center(
-                child: Image.asset(widget.client.logoUrl, fit: BoxFit.contain),
+            child: SmartImageWidget(
+              source: widget.client.logoUrl,
+              borderRadius: BorderRadius.circular(8),
+              errorWidget: Container(
+                color: AppColors.jet,
+                child: const Icon(Icons.business, color: AppColors.lightGray),
               ),
             ),
           ),

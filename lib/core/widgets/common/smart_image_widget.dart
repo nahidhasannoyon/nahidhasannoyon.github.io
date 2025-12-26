@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:lottie/lottie.dart';
 
 /// Enum to specify the type of image source
 enum ImageSourceType { asset, network, auto }
 
 /// Enum to specify the image format
-enum ImageFormat { svg, png, jpeg, gif, webp, icon, auto }
+enum ImageFormat { svg, png, jpeg, gif, webp, icon, lottie, auto }
 
 /// Usage:
 /// ```dart
@@ -39,11 +40,7 @@ class SmartImageWidget extends StatelessWidget {
     this.errorWidget,
   });
 
-  /// The source - can be:
-  /// - String: asset path or network URL (e.g., 'assets/icon.svg', 'https://...')
-  /// - IconData: Flutter icon (e.g., Icons.home, CupertinoIcons.star)
   final dynamic source;
-
   final String? defaultImage;
   final double? width;
   final double? height;
@@ -125,9 +122,11 @@ class SmartImageWidget extends StatelessWidget {
     final resolvedType = _getSourceType(src);
     final resolvedFormat = _getFormat(src);
 
-    return resolvedFormat == ImageFormat.svg
-        ? _buildSvgImage(src, resolvedType)
-        : _buildRasterImage(src, resolvedType, context);
+    return switch (resolvedFormat) {
+      ImageFormat.lottie => _buildLottieImage(src, resolvedType),
+      ImageFormat.svg => _buildSvgImage(src, resolvedType),
+      _ => _buildRasterImage(src, resolvedType, context),
+    };
   }
 
   Widget _buildIcon() {
@@ -137,6 +136,30 @@ class SmartImageWidget extends StatelessWidget {
       color: color,
       semanticLabel: semanticLabel,
     );
+  }
+
+  Widget _buildLottieImage(String src, ImageSourceType type) {
+    final isNetwork = type == ImageSourceType.network;
+
+    final lottieWidget = isNetwork
+        ? Lottie.network(
+            src,
+            width: width,
+            height: height,
+            fit: fit,
+            errorBuilder: (context, error, stackTrace) =>
+                _buildErrorWidget(context),
+          )
+        : Lottie.asset(
+            src,
+            width: width,
+            height: height,
+            fit: fit,
+            errorBuilder: (context, error, stackTrace) =>
+                _buildErrorWidget(context),
+          );
+
+    return lottieWidget;
   }
 
   Widget _buildSvgImage(String src, ImageSourceType type) {
@@ -291,6 +314,7 @@ class _ImageUtils {
     final path = src.toLowerCase().split('?').first;
 
     if (path.endsWith('.svg')) return ImageFormat.svg;
+    if (path.endsWith('.json')) return ImageFormat.lottie;
     if (path.endsWith('.png')) return ImageFormat.png;
     if (path.endsWith('.jpg') || path.endsWith('.jpeg')) {
       return ImageFormat.jpeg;

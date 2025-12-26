@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:nahid_hasan_noyon/core/theme/app_theme.dart';
 import 'package:nahid_hasan_noyon/core/utils/responsive.dart';
+import 'package:nahid_hasan_noyon/core/widgets/common/common_widgets.dart';
+import 'package:nahid_hasan_noyon/core/widgets/common/smart_image_widget.dart';
+import 'package:nahid_hasan_noyon/core/widgets/project_detail_modal.dart';
 import 'package:nahid_hasan_noyon/data/models/portfolio_data.dart';
 import 'package:nahid_hasan_noyon/data/portfolio_content.dart';
-import 'package:nahid_hasan_noyon/core/widgets/common/common_widgets.dart';
-import 'package:nahid_hasan_noyon/core/widgets/project_detail_modal.dart';
-
 import 'package:url_launcher/url_launcher.dart';
 
 class ProjectsPage extends StatefulWidget {
@@ -346,11 +345,11 @@ class _ProjectCardState extends State<_ProjectCard>
                                 ).animate(animation),
                                 child: child,
                               ),
-                          child: Image.network(
-                            _images[_currentImageIndex],
+                          child: SmartImageWidget(
+                            source: _images[_currentImageIndex],
                             key: ValueKey(_images[_currentImageIndex]),
                             fit: BoxFit.cover,
-                            errorBuilder: (_, _, _) => Container(
+                            errorWidget: Container(
                               color: AppColors.jet,
                               child: const Icon(
                                 Icons.image,
@@ -466,6 +465,13 @@ class _ProjectCardState extends State<_ProjectCard>
               ],
               if (widget.project.links != null &&
                   widget.project.links!.isNotEmpty) ...[
+                //                     Lottie.asset(
+                //   'assets/jsons/flutter-work.json',
+                //   width: 300,
+                //   height: 300,
+                //   fit: BoxFit.contain,
+                // ),
+                // const SizedBox(height: 40),
                 const SizedBox(height: 12),
                 Padding(
                   padding: const EdgeInsets.only(left: 10, right: 10),
@@ -498,48 +504,19 @@ class _ProjectCardState extends State<_ProjectCard>
                                 child: Row(
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
-                                    if (link.icon != null)
-                                      Padding(
-                                        padding: const EdgeInsets.only(
-                                          right: 6,
-                                        ),
-                                        child: SizedBox(
-                                          width: 14,
-                                          height: 14,
-                                          child: link.icon!.contains('svg')
-                                              ? SvgPicture.asset(
-                                                  link.icon!,
-                                                  width: 14,
-                                                  height: 14,
-                                                  colorFilter:
-                                                      const ColorFilter.mode(
-                                                        AppColors
-                                                            .orangeYellowCrayola,
-                                                        BlendMode.srcIn,
-                                                      ),
-                                                  placeholderBuilder: (context) {
-                                                    return const Icon(
-                                                      Icons.link,
-                                                      size: 14,
-                                                      color: AppColors
-                                                          .orangeYellowCrayola,
-                                                    );
-                                                  },
-                                                )
-                                              : Image.asset(
-                                                  link.icon!,
-                                                  color: AppColors
-                                                      .orangeYellowCrayola,
-                                                  errorBuilder: (_, _, _) =>
-                                                      const Icon(
-                                                        Icons.link,
-                                                        size: 14,
-                                                        color: AppColors
-                                                            .orangeYellowCrayola,
-                                                      ),
-                                                ),
+                                    if (link.icon != null) ...[
+                                      SmartImageWidget(
+                                        source: link.icon!,
+                                        width: 14,
+                                        height: 14,
+                                        errorWidget: const Icon(
+                                          Icons.link,
+                                          size: 14,
+                                          color: AppColors.orangeYellowCrayola,
                                         ),
                                       ),
+                                      const SizedBox(width: 6),
+                                    ],
                                     Text(
                                       link.name,
                                       style: AppTextStyles.bodyText.copyWith(

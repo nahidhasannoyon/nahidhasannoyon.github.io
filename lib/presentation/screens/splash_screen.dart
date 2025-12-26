@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nahid_hasan_noyon/core/widgets/common/smart_image_widget.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({required this.nextScreen, super.key});
@@ -54,7 +55,7 @@ class _SplashScreenState extends State<SplashScreen>
 
     // Move > to the left
     if (mounted) {
-      for (int i = 0; i <= 50; i += 2) {
+      for (int i = 0; i <= 60; i += 2) {
         setState(() {
           _offsetX = -i.toDouble();
         });
@@ -95,34 +96,27 @@ class _SplashScreenState extends State<SplashScreen>
     return Scaffold(
       backgroundColor: const Color(0xFF0a0a0a),
       body: Center(
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
+        child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            // De text
-            AnimatedOpacity(
-              opacity: _showDE ? 1.0 : 0.0,
-              duration: const Duration(milliseconds: 400),
-              child: const Text(
-                'De',
-                style: TextStyle(
-                  fontSize: 80,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                  letterSpacing: 2,
-                ),
-              ),
+            // logo on top
+            const SmartImageWidget(
+              source: 'assets/jsons/flutter-logo-loading.json',
+              width: 250,
+              height: 250,
             ),
-            // v that rotates to >
-            AnimatedOpacity(
-              opacity: _showV ? 1.0 : 0.0,
-              duration: const Duration(milliseconds: 400),
-              child: Transform.translate(
-                offset: Offset(_offsetX, 0),
-                child: Transform.rotate(
-                  angle: _rotation,
+            const SizedBox(height: 150),
+            // Animated text
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                // De text
+                AnimatedOpacity(
+                  opacity: _showDE ? 1.0 : 0.0,
+                  duration: const Duration(milliseconds: 400),
                   child: const Text(
-                    'v',
+                    'De',
                     style: TextStyle(
                       fontSize: 80,
                       fontWeight: FontWeight.bold,
@@ -131,22 +125,39 @@ class _SplashScreenState extends State<SplashScreen>
                     ),
                   ),
                 ),
-              ),
-            ),
-            // Loading text
-            if (_loadingText.isNotEmpty)
-              Padding(
-                padding: const EdgeInsets.only(left: 16),
-                child: Text(
-                  _loadingText,
-                  style: const TextStyle(
-                    fontSize: 32,
-                    fontWeight: FontWeight.w400,
-                    color: Colors.white70,
-                    letterSpacing: 1,
+                // v that rotates to >
+                AnimatedOpacity(
+                  opacity: _showV ? 1.0 : 0.0,
+                  duration: const Duration(milliseconds: 400),
+                  child: Transform.translate(
+                    offset: Offset(_offsetX, 0),
+                    child: Transform.rotate(
+                      angle: _rotation,
+                      child: const Text(
+                        'v',
+                        style: TextStyle(
+                          fontSize: 80,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                          letterSpacing: 2,
+                        ),
+                      ),
+                    ),
                   ),
                 ),
-              ),
+                // Loading text
+                if (_loadingText.isNotEmpty)
+                  Text(
+                    _loadingText,
+                    style: const TextStyle(
+                      fontSize: 60,
+                      fontWeight: FontWeight.w400,
+                      color: Colors.white70,
+                      letterSpacing: 1,
+                    ),
+                  ),
+              ],
+            ),
           ],
         ),
       ),

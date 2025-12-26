@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:nahid_hasan_noyon/core/theme/app_theme.dart';
 import 'package:nahid_hasan_noyon/core/utils/cursor_service.dart';
+import 'package:nahid_hasan_noyon/core/widgets/common/smart_image_widget.dart';
 import 'package:nahid_hasan_noyon/data/models/portfolio_data.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -171,19 +171,16 @@ class _ProjectDetailModalState extends State<ProjectDetailModal>
                                 },
                                 itemCount: _images.length,
                                 itemBuilder: (context, index) {
-                                  return Image.network(
-                                    _images[index],
-                                    fit: BoxFit.cover,
-                                    errorBuilder:
-                                        (context, error, stackTrace) =>
-                                            Container(
-                                              color: AppColors.jet,
-                                              child: const Icon(
-                                                Icons.image,
-                                                color: AppColors.lightGray,
-                                                size: 80,
-                                              ),
-                                            ),
+                                  return SmartImageWidget(
+                                    source: _images[index],
+                                    errorWidget: Container(
+                                      color: AppColors.jet,
+                                      child: const Icon(
+                                        Icons.image,
+                                        color: AppColors.lightGray,
+                                        size: 80,
+                                      ),
+                                    ),
                                   );
                                 },
                               ),
@@ -430,37 +427,15 @@ class _ProjectLinkButtonState extends State<_ProjectLinkButton> {
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              if (widget.link.icon != null)
-                Padding(
-                  padding: const EdgeInsets.only(right: 8),
-                  child: SizedBox(
-                    width: 16,
-                    height: 16,
-                    child: widget.link.icon!.contains('svg')
-                        ? SvgPicture.asset(
-                            widget.link.icon!,
-                            width: 16,
-                            height: 16,
-                            colorFilter: ColorFilter.mode(
-                              _isHovered
-                                  ? AppColors.orangeYellowCrayola
-                                  : AppColors.lightGray70,
-                              BlendMode.srcIn,
-                            ),
-                            placeholderBuilder: (context) {
-                              return const Icon(Icons.link, size: 16);
-                            },
-                          )
-                        : Image.asset(
-                            widget.link.icon!,
-                            color: _isHovered
-                                ? AppColors.orangeYellowCrayola
-                                : AppColors.lightGray70,
-                            errorBuilder: (_, _, _) =>
-                                const Icon(Icons.link, size: 16),
-                          ),
-                  ),
+              if (widget.link.icon != null) ...[
+                SmartImageWidget(
+                  source: widget.link.icon!,
+                  width: 16,
+                  height: 16,
+                  errorWidget: const Icon(Icons.link, size: 16),
                 ),
+                const SizedBox(width: 8),
+              ],
               Text(
                 widget.link.name,
                 style: AppTextStyles.bodyText.copyWith(
