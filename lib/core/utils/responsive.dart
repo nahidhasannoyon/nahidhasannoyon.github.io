@@ -9,7 +9,7 @@ class Responsive {
       return DeviceType.largeDesktop;
     } else if (width >= 1024) {
       return DeviceType.desktop;
-    } else if (width >= 580) {
+    } else if (width >= 600) {
       return DeviceType.tablet;
     } else {
       return DeviceType.mobile;

@@ -39,7 +39,7 @@ class PortfolioContent {
   );
 
   static const List<String> aboutText = [
-    'Passionate and detail-oriented Flutter Developer with 3+ years of experience building high-performance, cross-platform mobile applications for Android, iOS, and web. Skilled in GetX, Clean Architecture, REST API integration, and responsive UI design. Shipped 4+ scalable, production-ready apps globally. Strong believer in writing clean, maintainable, and testable code that aligns with business goals.',
+    'Passionate and detail-oriented <b>Flutter Developer</b> with <b>3+ years of experience</b> building high-performance, cross-platform mobile applications for <b>Android, iOS, and web</b>. Skilled in <b>GetX</b>, <b>Clean Architecture</b>, <b>REST API integration</b>, and <b>responsive UI design</b>. Shipped <b>4+ scalable, production-ready apps</b> globally. Strong believer in writing <b>clean, maintainable, and testable code</b> that aligns with business goals.',
   ];
 
   static const List<ServiceItem> services = [
@@ -470,7 +470,7 @@ class PortfolioContent {
         ProjectLink(
           name: 'Pub.dev',
           url: 'https://pub.dev/packages/smart_state_handler',
-          icon: 'assets/icons/dart_pub.svg',
+          icon: 'assets/icons/pub-dev-logo.svg',
         ),
         ProjectLink(
           name: 'GitHub',

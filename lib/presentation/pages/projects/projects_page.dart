@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:nahid_hasan_noyon/core/theme/app_theme.dart';
 import 'package:nahid_hasan_noyon/core/utils/responsive.dart';
 import 'package:nahid_hasan_noyon/data/models/portfolio_data.dart';
 import 'package:nahid_hasan_noyon/data/portfolio_content.dart';
 import 'package:nahid_hasan_noyon/presentation/widgets/common/common_widgets.dart';
 import 'package:nahid_hasan_noyon/presentation/widgets/project_detail_modal.dart';
-import 'package:svg_flutter/svg.dart';
+
 import 'package:url_launcher/url_launcher.dart';
 
 class ProjectsPage extends StatefulWidget {

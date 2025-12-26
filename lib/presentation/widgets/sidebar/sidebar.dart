@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:nahid_hasan_noyon/core/theme/app_theme.dart';
 import 'package:nahid_hasan_noyon/core/utils/responsive.dart';
 import 'package:nahid_hasan_noyon/data/models/portfolio_data.dart';
 import 'package:nahid_hasan_noyon/data/portfolio_content.dart';
-import 'package:svg_flutter/svg.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class Sidebar extends StatefulWidget {
@@ -72,7 +72,6 @@ class _SidebarState extends State<Sidebar> {
               Expanded(
                 child: Column(
                   children: [
-                    const SizedBox(height: 30),
                     _buildAvatar(context, person),
                     const SizedBox(height: 15),
                     _buildNameTitle(context, person, isLargeDesktop),
@@ -157,6 +156,8 @@ class _SidebarState extends State<Sidebar> {
             style: AppTextStyles.smallText.copyWith(color: AppColors.white1),
           ),
         ),
+        const SizedBox(height: 15),
+        const _ExperiencePill(),
       ],
     );
   }
@@ -224,7 +225,49 @@ class _SidebarState extends State<Sidebar> {
         _buildContactsList(context, person),
         const _Separator(),
         _buildSocialList(person),
+        const SizedBox(height: 20),
+        _buildDownloadResumeButton(),
       ],
+    );
+  }
+
+  Widget _buildDownloadResumeButton() {
+    return MouseRegion(
+      cursor: SystemMouseCursors.click,
+      child: GestureDetector(
+        onTap: () {
+          _launchUrl('assets/docs/Nahid Hasan Noyon Resume.pdf');
+        },
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+          decoration: BoxDecoration(
+            gradient: AppColors.bgGradientJet,
+            borderRadius: BorderRadius.circular(12),
+            border: Border.all(
+              color: AppColors.orangeYellowCrayola.withValues(alpha: 0.5),
+            ),
+            boxShadow: const [AppShadows.shadow1],
+          ),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Icon(
+                Icons.download_rounded,
+                color: AppColors.orangeYellowCrayola,
+                size: 18,
+              ),
+              const SizedBox(width: 8),
+              Text(
+                'Download Resume',
+                style: AppTextStyles.smallText.copyWith(
+                  color: AppColors.white1,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 
@@ -256,9 +299,11 @@ class _SidebarState extends State<Sidebar> {
       return Column(
         children: contacts
             .map(
-              (c) => Padding(
-                padding: const EdgeInsets.only(bottom: 16),
-                child: _buildContactItem(c),
+              (contact) => Padding(
+                padding: contact == contacts.last
+                    ? EdgeInsets.zero
+                    : const EdgeInsets.only(bottom: 16),
+                child: _buildContactItem(contact),
               ),
             )
             .toList(),
@@ -390,16 +435,15 @@ class _SidebarState extends State<Sidebar> {
   }
 
   void _launchUrl(String url) async {
-    if (await canLaunchUrl(Uri.parse(url))) {
-      await launchUrl(Uri.parse(url));
+    final Uri uri = Uri.parse(Uri.encodeFull(url));
+    if (!await launchUrl(uri)) {
+      debugPrint('Could not launch $url');
     }
   }
 
   Widget _buildSocialList(PersonInfo person) {
     return Row(
-      mainAxisAlignment: Responsive.isLargeDesktop(context)
-          ? MainAxisAlignment.center
-          : MainAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.center,
       children: person.socialLinks.map<Widget>((social) {
         return Padding(
           padding: const EdgeInsets.only(right: 20),
@@ -438,7 +482,7 @@ class _Separator extends StatelessWidget {
       width: double.infinity,
       height: 1,
       margin: EdgeInsets.symmetric(
-        vertical: Responsive.getValue(context, mobile: 16, tablet: 32),
+        vertical: Responsive.getValue(context, mobile: 16, tablet: 24),
       ),
       color: AppColors.jet,
     );
@@ -563,6 +607,53 @@ class _ScrollingTextState extends State<_ScrollingText> {
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class _ExperiencePill extends StatelessWidget {
+  const _ExperiencePill();
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 5),
+      decoration: BoxDecoration(
+        gradient: const LinearGradient(
+          colors: [AppColors.onyx, AppColors.eerieBlack1],
+        ),
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(
+          color: AppColors.orangeYellowCrayola.withValues(alpha: 0.3),
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: AppColors.orangeYellowCrayola.withValues(alpha: 0.05),
+            blurRadius: 10,
+            offset: const Offset(0, 4),
+          ),
+        ],
+      ),
+      child: const Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(
+            Icons.workspace_premium_rounded,
+            color: AppColors.orangeYellowCrayola,
+            size: 16,
+          ),
+          SizedBox(width: 8),
+          Text(
+            '3+ Years Exp.',
+            style: TextStyle(
+              fontFamily: AppTextStyles.fontFamily,
+              fontSize: 12,
+              color: AppColors.white2,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+        ],
       ),
     );
   }

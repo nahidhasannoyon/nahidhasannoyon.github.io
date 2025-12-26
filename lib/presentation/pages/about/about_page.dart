@@ -4,6 +4,7 @@ import 'package:nahid_hasan_noyon/core/utils/responsive.dart';
 import 'package:nahid_hasan_noyon/data/models/portfolio_data.dart';
 import 'package:nahid_hasan_noyon/data/portfolio_content.dart';
 import 'package:nahid_hasan_noyon/presentation/widgets/common/common_widgets.dart';
+import 'package:styled_text/styled_text.dart';
 
 class AboutPage extends StatelessWidget {
   const AboutPage({super.key});
@@ -43,7 +44,18 @@ class AboutPage extends StatelessWidget {
       children: PortfolioContent.aboutText.map((text) {
         return Padding(
           padding: const EdgeInsets.only(bottom: 15),
-          child: Text(text, style: AppTextStyles.bodyText),
+          child: StyledText(
+            text: text,
+            style: AppTextStyles.bodyText,
+            tags: {
+              'b': StyledTextTag(
+                style: AppTextStyles.bodyText.copyWith(
+                  color: AppColors.white1,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            },
+          ),
         );
       }).toList(),
     );
