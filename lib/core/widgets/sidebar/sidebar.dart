@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:nahid_hasan_noyon/core/theme/app_theme.dart';
+import 'package:nahid_hasan_noyon/core/utils/enums.dart';
 import 'package:nahid_hasan_noyon/core/utils/responsive.dart';
+import 'package:nahid_hasan_noyon/core/widgets/common/common_widgets.dart';
+import 'package:nahid_hasan_noyon/core/widgets/common/smart_image_widget.dart';
+import 'package:nahid_hasan_noyon/core/widgets/miscellaneous/experience_pill_widget.dart';
+import 'package:nahid_hasan_noyon/core/widgets/miscellaneous/scrolling_text_widget.dart';
 import 'package:nahid_hasan_noyon/data/models/portfolio_data.dart';
 import 'package:nahid_hasan_noyon/data/portfolio_content.dart';
-import 'package:svg_flutter/svg.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class Sidebar extends StatefulWidget {
@@ -72,7 +76,6 @@ class _SidebarState extends State<Sidebar> {
               Expanded(
                 child: Column(
                   children: [
-                    const SizedBox(height: 30),
                     _buildAvatar(context, person),
                     const SizedBox(height: 15),
                     _buildNameTitle(context, person, isLargeDesktop),
@@ -100,26 +103,15 @@ class _SidebarState extends State<Sidebar> {
       largeDesktop: 150.0,
     );
 
-    return Container(
-      width: size,
+    return SmartImageWidget(
       height: size,
-      decoration: BoxDecoration(
-        gradient: AppColors.bgGradientOnyx,
-        borderRadius: BorderRadius.circular(
-          Responsive.getValue(context, mobile: 20, tablet: 30),
-        ),
+      width: size,
+      source: person.avatarUrl,
+      fit: BoxFit.cover,
+      borderRadius: BorderRadius.circular(
+        Responsive.getValue(context, mobile: 20, tablet: 30),
       ),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(
-          Responsive.getValue(context, mobile: 20, tablet: 30),
-        ),
-        child: Image.asset(
-          person.avatarUrl,
-          fit: BoxFit.cover,
-          errorBuilder: (_, _, _) =>
-              const Icon(Icons.person, size: 50, color: AppColors.white2),
-        ),
-      ),
+      errorWidget: const Icon(Icons.person, size: 50, color: AppColors.white2),
     );
   }
 
@@ -138,10 +130,9 @@ class _SidebarState extends State<Sidebar> {
           style: AppTextStyles.h3.copyWith(
             fontSize: Responsive.getValue(
               context,
-              mobile: AppTextStyles.fs3,
-              tablet: AppTextStyles.fs3,
+              mobile: AppTextStyles.fs2,
+              tablet: AppTextStyles.fs2,
             ),
-            letterSpacing: -0.25,
           ),
           textAlign: isLargeDesktop ? TextAlign.center : TextAlign.start,
         ),
@@ -157,6 +148,8 @@ class _SidebarState extends State<Sidebar> {
             style: AppTextStyles.smallText.copyWith(color: AppColors.white1),
           ),
         ),
+        const SizedBox(height: 15),
+        const ExperiencePillWidget(),
       ],
     );
   }
@@ -220,11 +213,53 @@ class _SidebarState extends State<Sidebar> {
   Widget _buildSidebarMore(BuildContext context, person) {
     return Column(
       children: [
-        const _Separator(),
+        const Separator(),
         _buildContactsList(context, person),
-        const _Separator(),
+        const Separator(),
         _buildSocialList(person),
+        const SizedBox(height: 20),
+        _buildDownloadResumeButton(),
       ],
+    );
+  }
+
+  Widget _buildDownloadResumeButton() {
+    return MouseRegion(
+      cursor: SystemMouseCursors.click,
+      child: GestureDetector(
+        onTap: () {
+          _launchUrl('assets/docs/Nahid Hasan Noyon Resume.pdf');
+        },
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+          decoration: BoxDecoration(
+            gradient: AppColors.bgGradientJet,
+            borderRadius: BorderRadius.circular(12),
+            border: Border.all(
+              color: AppColors.orangeYellowCrayola.withValues(alpha: 0.5),
+            ),
+            boxShadow: const [AppShadows.shadow1],
+          ),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Icon(
+                Icons.download_rounded,
+                color: AppColors.orangeYellowCrayola,
+                size: 18,
+              ),
+              const SizedBox(width: 8),
+              Text(
+                'Download Resume',
+                style: AppTextStyles.smallText.copyWith(
+                  color: AppColors.white1,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 
@@ -232,19 +267,19 @@ class _SidebarState extends State<Sidebar> {
     final isLargeDesktop = Responsive.isLargeDesktop(context);
 
     final contacts = [
-      _ContactData(
+      ContactData(
         icon: Icons.email_outlined,
         title: 'Email',
         value: person.email,
         action: ContactAction.copyEmail,
       ),
-      _ContactData(
+      ContactData(
         icon: Icons.phone_android_outlined,
         title: 'Phone',
         value: person.phone,
         action: ContactAction.dialPhone,
       ),
-      _ContactData(
+      ContactData(
         icon: Icons.location_on_outlined,
         title: 'Location',
         value: person.location,
@@ -256,9 +291,11 @@ class _SidebarState extends State<Sidebar> {
       return Column(
         children: contacts
             .map(
-              (c) => Padding(
-                padding: const EdgeInsets.only(bottom: 16),
-                child: _buildContactItem(c),
+              (contact) => Padding(
+                padding: contact == contacts.last
+                    ? EdgeInsets.zero
+                    : const EdgeInsets.only(bottom: 16),
+                child: _buildContactItem(contact),
               ),
             )
             .toList(),
@@ -281,7 +318,7 @@ class _SidebarState extends State<Sidebar> {
     );
   }
 
-  Widget _buildContactItem(_ContactData contact) {
+  Widget _buildContactItem(ContactData contact) {
     return Row(
       children: [
         Container(
@@ -324,7 +361,7 @@ class _SidebarState extends State<Sidebar> {
     );
   }
 
-  Widget _buildValueWidget(_ContactData contact) {
+  Widget _buildValueWidget(ContactData contact) {
     final text = contact.value;
     final isLong = text.length > 20;
 
@@ -339,7 +376,7 @@ class _SidebarState extends State<Sidebar> {
     );
 
     if (isLong) {
-      textWidget = _ScrollingText(text: text);
+      textWidget = ScrollingTextWidget(text: text);
     }
 
     Widget interactiveWidget = textWidget;
@@ -390,16 +427,15 @@ class _SidebarState extends State<Sidebar> {
   }
 
   void _launchUrl(String url) async {
-    if (await canLaunchUrl(Uri.parse(url))) {
-      await launchUrl(Uri.parse(url));
+    final Uri uri = Uri.parse(Uri.encodeFull(url));
+    if (!await launchUrl(uri)) {
+      debugPrint('Could not launch $url');
     }
   }
 
   Widget _buildSocialList(PersonInfo person) {
     return Row(
-      mainAxisAlignment: Responsive.isLargeDesktop(context)
-          ? MainAxisAlignment.center
-          : MainAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.center,
       children: person.socialLinks.map<Widget>((social) {
         return Padding(
           padding: const EdgeInsets.only(right: 20),
@@ -407,163 +443,20 @@ class _SidebarState extends State<Sidebar> {
             onTap: () => _launchUrl(social.url),
             child: MouseRegion(
               cursor: SystemMouseCursors.click,
-              child: social.icon is IconData
-                  ? Icon(
-                      social.icon as IconData,
-                      color: AppColors.lightGray70,
-                      size: 24,
-                    )
-                  : social.icon.contains('svg')
-                  ? SvgPicture.asset(social.icon, width: 24, height: 24)
-                  : Image.asset(
-                      social.icon,
-                      width: 24,
-                      height: 24,
-                      color: AppColors.lightGray70,
-                    ),
+              child: SmartImageWidget(
+                source: social.icon,
+                width: 24,
+                height: 24,
+                errorWidget: const Icon(
+                  Icons.link,
+                  size: 24,
+                  color: AppColors.white2,
+                ),
+              ),
             ),
           ),
         );
       }).toList(),
-    );
-  }
-}
-
-class _Separator extends StatelessWidget {
-  const _Separator();
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      height: 1,
-      margin: EdgeInsets.symmetric(
-        vertical: Responsive.getValue(context, mobile: 16, tablet: 32),
-      ),
-      color: AppColors.jet,
-    );
-  }
-}
-
-class _ContactData {
-  _ContactData({
-    required this.icon,
-    required this.title,
-    required this.value,
-    required this.action,
-  });
-  final IconData icon;
-  final String title;
-  final String value;
-  final ContactAction action;
-}
-
-enum ContactAction { none, copyEmail, dialPhone, openLocation }
-
-class _ScrollingText extends StatefulWidget {
-  const _ScrollingText({required this.text});
-  final String text;
-
-  @override
-  State<_ScrollingText> createState() => _ScrollingTextState();
-}
-
-class _ScrollingTextState extends State<_ScrollingText> {
-  late final ScrollController _scrollController;
-  bool _scrolling = false;
-
-  @override
-  void initState() {
-    super.initState();
-    _scrollController = ScrollController();
-    WidgetsBinding.instance.addPostFrameCallback((_) => _startScrollIfNeeded());
-  }
-
-  @override
-  void dispose() {
-    _scrollController.dispose();
-    super.dispose();
-  }
-
-  Future<void> _startScrollIfNeeded() async {
-    await Future.delayed(const Duration(milliseconds: 200));
-    if (!mounted) return;
-
-    try {
-      final maxScroll = _scrollController.position.maxScrollExtent;
-      if (maxScroll <= 0) return;
-    } catch (_) {}
-
-    if (_scrolling) return;
-    _scrolling = true;
-
-    while (mounted) {
-      try {
-        final max = _scrollController.position.maxScrollExtent;
-        if (max <= 0) break;
-        await _scrollController.animateTo(
-          max,
-          duration: Duration(seconds: (max / 30).clamp(3, 12).toInt()),
-          curve: Curves.linear,
-        );
-        await Future.delayed(const Duration(milliseconds: 600));
-        if (!mounted) break;
-        _scrollController.jumpTo(0);
-        await Future.delayed(const Duration(milliseconds: 400));
-      } catch (_) {
-        await Future.delayed(const Duration(milliseconds: 300));
-      }
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    if (widget.text.length <= 20) {
-      return Text(
-        widget.text,
-        style: const TextStyle(
-          fontFamily: AppTextStyles.fontFamily,
-          fontSize: 13,
-          color: AppColors.white2,
-        ),
-        maxLines: 1,
-        overflow: TextOverflow.ellipsis,
-      );
-    }
-
-    final repeated = '${widget.text}    ';
-
-    return SizedBox(
-      height: 18,
-      child: SingleChildScrollView(
-        controller: _scrollController,
-        scrollDirection: Axis.horizontal,
-        physics: const NeverScrollableScrollPhysics(),
-        child: Row(
-          children: [
-            Text(
-              repeated,
-              style: const TextStyle(
-                fontFamily: AppTextStyles.fontFamily,
-                fontSize: 14,
-                color: AppColors.white2,
-              ),
-              maxLines: 1,
-              overflow: TextOverflow.visible,
-            ),
-            Text(
-              repeated,
-              style: const TextStyle(
-                fontFamily: AppTextStyles.fontFamily,
-                fontSize: 14,
-                color: AppColors.white2,
-              ),
-              maxLines: 1,
-              overflow: TextOverflow.visible,
-            ),
-          ],
-        ),
-      ),
     );
   }
 }

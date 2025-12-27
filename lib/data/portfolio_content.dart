@@ -11,12 +11,12 @@ class PortfolioContent {
     socialLinks: [
       SocialLink(
         name: 'GitHub',
-        url: 'https://github.com/NahidHasanNoyon',
+        url: 'https://github.com/nahidhasannoyon',
         icon: 'assets/icons/github.svg',
       ),
       SocialLink(
         name: 'LinkedIn',
-        url: 'https://linkedin.com/in/NahidHasanNoyon',
+        url: 'https://linkedin.com/in/nahidhasannoyon',
         icon: 'assets/icons/linkedIn.svg',
       ),
       SocialLink(
@@ -28,7 +28,7 @@ class PortfolioContent {
     languages: [
       LanguageItem(
         name: 'Bengali',
-        proficiency: 'Native or bilingual proficiency',
+        proficiency: 'Native/bilingual proficiency',
       ),
       LanguageItem(
         name: 'English',
@@ -39,7 +39,7 @@ class PortfolioContent {
   );
 
   static const List<String> aboutText = [
-    'Passionate and detail-oriented Flutter Developer with 3+ years of experience building high-performance, cross-platform mobile applications for Android, iOS, and web. Skilled in GetX, Clean Architecture, REST API integration, and responsive UI design. Shipped 4+ scalable, production-ready apps globally. Strong believer in writing clean, maintainable, and testable code that aligns with business goals.',
+    'Passionate and detail-oriented <b>Flutter Developer</b> with <b>3+ years of experience</b> building high-performance, cross-platform mobile applications for <b>Android, iOS, and web</b>. Skilled in <b>GetX</b>, <b>Clean Architecture</b>, <b>REST API integration</b>, and <b>responsive UI design</b>. Shipped <b>4+ scalable, production-ready apps</b> globally. Strong believer in writing <b>clean, maintainable, and testable code</b> that aligns with business goals.',
   ];
 
   static const List<ServiceItem> services = [
@@ -47,25 +47,25 @@ class PortfolioContent {
       title: 'Flutter App Development',
       description:
           'Building high-performance, cross-platform mobile applications for Android, iOS, and web.',
-      iconPath: 'assets/images/icon-app.svg',
+      iconPath: 'assets/icons/pub-dev-logo.svg',
     ),
     ServiceItem(
       title: 'REST API Integration',
       description:
           'Integrating RESTful APIs, WebSockets, and Firebase services for real-time and data-driven apps.',
-      iconPath: 'assets/images/icon-dev.svg',
+      iconPath: 'assets/icons/rest_api.png',
     ),
     ServiceItem(
       title: 'UI/UX Design',
       description:
           'Collaborating with UI/UX teams to deliver pixel-perfect, responsive interfaces.',
-      iconPath: 'assets/images/icon-design.svg',
+      iconPath: 'assets/icons/ui_ux.png',
     ),
     ServiceItem(
       title: 'App Optimization',
       description:
           'Optimizing app performance, state management, and implementing efficient caching strategies.',
-      iconPath: 'assets/images/icon-photo.svg',
+      iconPath: 'assets/icons/app_optimization.png',
     ),
   ];
 
@@ -327,31 +327,16 @@ class PortfolioContent {
       title: 'CareConnect App',
       category: 'Applications',
 
-      imageUrls: [
-        'https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=600&h=400&fit=crop',
-        'https://images.unsplash.com/photo-1579154204601-01d82b27ebcc?w=600&h=400&fit=crop',
-        'https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=600&h=400&fit=crop',
-      ],
+      imageUrls: ['assets/jsons/flutter-work.json'],
       description:
           'A comprehensive healthcare application connecting patients with medical professionals and enabling appointment scheduling, medical record management, and telemedicine consultations.',
       keywords: ['Flutter', 'Healthcare', 'Firebase', 'REST API'],
-      links: [
-        ProjectLink(
-          name: 'GitHub',
-          url: 'https://github.com/nahidhasannoyon/careconnect',
-          icon: 'assets/icons/github.svg',
-        ),
-      ],
     ),
     ProjectItem(
       title: 'SmartAttendance Mobile App',
       category: 'Applications',
 
-      imageUrls: [
-        'https://images.unsplash.com/photo-1531482615713-2afd69097998?w=600&h=400&fit=crop',
-        'https://images.unsplash.com/photo-1552664730-d307ca884978?w=600&h=400&fit=crop',
-        'https://images.unsplash.com/photo-1552965736-5a6370d0d17b?w=600&h=400&fit=crop',
-      ],
+      imageUrls: ['assets/jsons/flutter-work.json'],
       description:
           'An intelligent attendance tracking system using biometric recognition and real-time synchronization for schools and organizations with comprehensive reporting features.',
       keywords: ['Flutter', 'Biometrics', 'Real-time Sync', 'Analytics'],
@@ -360,11 +345,7 @@ class PortfolioContent {
       title: 'ePolli App',
       category: 'Applications',
 
-      imageUrls: [
-        'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=600&h=400&fit=crop',
-        'https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=600&h=400&fit=crop',
-        'https://images.unsplash.com/photo-1454496522488-7a8e488e8606?w=600&h=400&fit=crop',
-      ],
+      imageUrls: ['assets/jsons/flutter-work.json'],
       description:
           'A multi-vendor e-commerce platform enabling seamless shopping experience with product catalog, cart management, secure payment integration, and order tracking.',
       keywords: ['Flutter', 'E-commerce', 'Payment Gateway', 'GetX'],
@@ -373,11 +354,7 @@ class PortfolioContent {
       title: 'ePolli Shohoz Khamari App',
       category: 'Applications',
 
-      imageUrls: [
-        'https://images.unsplash.com/photo-1555939594-58d7cb561231?w=600&h=400&fit=crop',
-        'https://images.unsplash.com/photo-1484488167118-3a23c0b7b8a3?w=600&h=400&fit=crop',
-        'https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=600&h=400&fit=crop',
-      ],
+      imageUrls: ['assets/jsons/flutter-work.json'],
       description:
           'A specialized e-commerce application for groceries and daily essentials with real-time inventory management, fast delivery integration, and consumer-friendly interface.',
       keywords: ['Flutter', 'E-commerce', 'Grocery', 'Delivery Integration'],
@@ -386,11 +363,7 @@ class PortfolioContent {
       title: 'GrowBook App',
       category: 'Applications',
 
-      imageUrls: [
-        'https://images.unsplash.com/photo-1530836369250-ef72a3f5cda8?w=600&h=400&fit=crop',
-        'https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=600&h=400&fit=crop',
-        'https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=600&h=400&fit=crop',
-      ],
+      imageUrls: ['assets/jsons/flutter-work.json'],
       description:
           'An agricultural technology platform designed to help farmers track crops, manage resources, access market prices, and connect with agricultural experts for better yields.',
       keywords: ['Flutter', 'AgriTech', 'Data Analytics', 'IoT Integration'],
@@ -399,11 +372,7 @@ class PortfolioContent {
       title: 'ekDeal APP',
       category: 'Applications',
 
-      imageUrls: [
-        'https://images.unsplash.com/photo-1552288049-bebda541e8ee?w=600&h=400&fit=crop',
-        'https://images.unsplash.com/photo-1556740722-97cbbba6db3b?w=600&h=400&fit=crop',
-        'https://images.unsplash.com/photo-1564684853211-8db1bdf9c5f4?w=600&h=400&fit=crop',
-      ],
+      imageUrls: ['assets/jsons/flutter-work.json'],
       description:
           'A dynamic deals and discounts marketplace featuring real-time offers, vendor collaboration, user-friendly deal discovery, and secure transaction management.',
       keywords: ['Flutter', 'E-commerce', 'Offers', 'Provider'],
@@ -412,11 +381,7 @@ class PortfolioContent {
       title: 'ePolli Multi-vendor App',
       category: 'Applications',
 
-      imageUrls: [
-        'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&h=400&fit=crop',
-        'https://images.unsplash.com/photo-1452587925148-ce544e77e70d?w=600&h=400&fit=crop',
-        'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=600&h=400&fit=crop',
-      ],
+      imageUrls: ['assets/jsons/flutter-work.json'],
       description:
           'A scalable multi-vendor platform supporting hundreds of sellers with individual stores, inventory management, commission handling, and comprehensive admin dashboard.',
       keywords: ['Flutter', 'Multi-vendor', 'Firestore', 'Clean Architecture'],
@@ -425,11 +390,7 @@ class PortfolioContent {
       title: 'Leadvala',
       category: 'Applications',
 
-      imageUrls: [
-        'https://images.unsplash.com/photo-1552664730-d307ca884978?w=600&h=400&fit=crop',
-        'https://images.unsplash.com/photo-1556740722-97cbbba6db3b?w=600&h=400&fit=crop',
-        'https://images.unsplash.com/photo-1552965736-5a6370d0d17b?w=600&h=400&fit=crop',
-      ],
+      imageUrls: ['assets/jsons/flutter-work.json'],
       description:
           'A lead generation and management platform featuring call recording, automatic lead assignment, analytics dashboard, and CRM integration for sales teams.',
       keywords: ['Flutter', 'CRM', 'Call Recording', 'Lead Management'],
@@ -438,11 +399,7 @@ class PortfolioContent {
       title: 'BAIUST Transport Schedule App',
       category: 'Applications',
 
-      imageUrls: [
-        'https://images.unsplash.com/photo-1576092160562-40f96b0fbbf0?w=600&h=400&fit=crop',
-        'https://images.unsplash.com/photo-1464207687429-7505649dae38?w=600&h=400&fit=crop',
-        'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=600&h=400&fit=crop',
-      ],
+      imageUrls: ['assets/jsons/flutter-work.json'],
       description:
           'A university transport management system with digital verification for bus travel, real-time tracking, schedule management, and attendance integration for students.',
       keywords: ['Flutter', 'Transportation', 'Digital Verification', 'IoT'],
@@ -451,11 +408,7 @@ class PortfolioContent {
       title: 'Smart State Handler',
       category: 'Packages',
 
-      imageUrls: [
-        'https://images.unsplash.com/photo-1576092160562-40f96b0fbbf0?w=600&h=400&fit=crop',
-        'https://images.unsplash.com/photo-1464207687429-7505649dae38?w=600&h=400&fit=crop',
-        'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=600&h=400&fit=crop',
-      ],
+      imageUrls: ['assets/jsons/flutter-work.json'],
       description:
           'A fully customizable Flutter UI state-management package designed to handle loading, error,   success, empty, and offline states with smooth animations, overlay mode, and pagination support. Includes configurable components for text, widgets, snackbars, and transitions, making it ideal for scalable and clean UI-state workflows.',
       keywords: [
@@ -470,7 +423,7 @@ class PortfolioContent {
         ProjectLink(
           name: 'Pub.dev',
           url: 'https://pub.dev/packages/smart_state_handler',
-          icon: 'assets/icons/dart_pub.svg',
+          icon: 'assets/icons/pub-dev-logo.svg',
         ),
         ProjectLink(
           name: 'GitHub',

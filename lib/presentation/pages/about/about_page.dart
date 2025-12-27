@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:nahid_hasan_noyon/core/theme/app_theme.dart';
 import 'package:nahid_hasan_noyon/core/utils/responsive.dart';
+import 'package:nahid_hasan_noyon/core/widgets/common/common_widgets.dart';
+import 'package:nahid_hasan_noyon/core/widgets/common/smart_image_widget.dart';
 import 'package:nahid_hasan_noyon/data/models/portfolio_data.dart';
 import 'package:nahid_hasan_noyon/data/portfolio_content.dart';
-import 'package:nahid_hasan_noyon/presentation/widgets/common/common_widgets.dart';
+import 'package:styled_text/styled_text.dart';
 
 class AboutPage extends StatelessWidget {
   const AboutPage({super.key});
@@ -32,7 +34,7 @@ class AboutPage extends StatelessWidget {
           // TODO: later add testimonials
           // buildTestimonials(context),
           const SizedBox(height: 30),
-          const _ClientsSection(),
+          // const _ClientsSection(),
         ],
       ),
     );
@@ -43,7 +45,19 @@ class AboutPage extends StatelessWidget {
       children: PortfolioContent.aboutText.map((text) {
         return Padding(
           padding: const EdgeInsets.only(bottom: 15),
-          child: Text(text, style: AppTextStyles.bodyText),
+          child: StyledText(
+            text: text,
+            textAlign: TextAlign.justify,
+            style: AppTextStyles.bodyText,
+            tags: {
+              'b': StyledTextTag(
+                style: AppTextStyles.bodyText.copyWith(
+                  color: AppColors.white1,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            },
+          ),
         );
       }).toList(),
     );
@@ -134,6 +148,7 @@ class AboutPage extends StatelessWidget {
             },
           ),
         ),
+        // Add Testimonials section slider
       ],
     );
   }
@@ -253,14 +268,15 @@ class _ServiceCard extends StatelessWidget {
   }
 
   Widget _buildIcon() {
-    return Container(
+    return SmartImageWidget(
+      source: service.iconPath,
       width: 40,
       height: 40,
-      decoration: BoxDecoration(
-        color: AppColors.orangeYellowCrayola.withValues(alpha: .1),
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: const Icon(
+      padding: const EdgeInsets.all(8),
+      borderRadius: BorderRadius.circular(8),
+      backgroundColor: AppColors.orangeYellowCrayola.withValues(alpha: .1),
+
+      errorWidget: const Icon(
         Icons.design_services,
         color: AppColors.orangeYellowCrayola,
         size: 24,
@@ -284,7 +300,7 @@ class _ServiceCard extends StatelessWidget {
         Text(
           service.description,
           style: AppTextStyles.bodyText,
-          textAlign: isTabletOrLarger ? TextAlign.start : TextAlign.center,
+          textAlign: TextAlign.justify,
           overflow: TextOverflow.ellipsis,
           maxLines: 3,
         ),
@@ -303,7 +319,7 @@ class _TestimonialCard extends StatelessWidget {
       clipBehavior: Clip.none,
       children: [
         GradientBox(
-          padding: const EdgeInsets.all(15).copyWith(top: 45),
+          padding: const EdgeInsets.all(15).copyWith(top: 15),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
@@ -337,19 +353,16 @@ class _TestimonialCard extends StatelessWidget {
               borderRadius: BorderRadius.circular(14),
               boxShadow: const [AppShadows.shadow1],
             ),
-            child: ClipRRect(
+            child: SmartImageWidget(
+              source: testimonial.avatarUrl,
+              width: 60,
+              height: 60,
               borderRadius: BorderRadius.circular(14),
-              child: Image.network(
-                'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=60&h=60&fit=crop',
+              errorWidget: Container(
                 width: 60,
                 height: 60,
-                fit: BoxFit.cover,
-                errorBuilder: (_, _, _) => Container(
-                  width: 60,
-                  height: 60,
-                  color: AppColors.jet,
-                  child: const Icon(Icons.person, color: AppColors.lightGray),
-                ),
+                color: AppColors.jet,
+                child: const Icon(Icons.person, color: AppColors.lightGray),
               ),
             ),
           ),
@@ -390,10 +403,12 @@ class _ClientLogoState extends State<_ClientLogo> {
               Colors.transparent,
               BlendMode.saturation,
             ),
-            child: Container(
-              decoration: BoxDecoration(borderRadius: BorderRadius.circular(8)),
-              child: Center(
-                child: Image.asset(widget.client.logoUrl, fit: BoxFit.contain),
+            child: SmartImageWidget(
+              source: widget.client.logoUrl,
+              borderRadius: BorderRadius.circular(8),
+              errorWidget: Container(
+                color: AppColors.jet,
+                child: const Icon(Icons.business, color: AppColors.lightGray),
               ),
             ),
           ),

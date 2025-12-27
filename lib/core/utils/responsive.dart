@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-enum DeviceType { mobile, tablet, desktop, largeDesktop }
+import 'package:nahid_hasan_noyon/core/utils/enums.dart';
 
 class Responsive {
   static DeviceType getDeviceType(BuildContext context) {
@@ -9,7 +8,7 @@ class Responsive {
       return DeviceType.largeDesktop;
     } else if (width >= 1024) {
       return DeviceType.desktop;
-    } else if (width >= 580) {
+    } else if (width >= 600) {
       return DeviceType.tablet;
     } else {
       return DeviceType.mobile;

@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:nahid_hasan_noyon/core/theme/app_theme.dart';
 import 'package:nahid_hasan_noyon/core/utils/cursor_service.dart';
 import 'package:nahid_hasan_noyon/core/utils/responsive.dart';
+import 'package:nahid_hasan_noyon/core/widgets/common/common_widgets.dart';
+import 'package:nahid_hasan_noyon/core/widgets/common/smart_image_widget.dart';
 import 'package:nahid_hasan_noyon/data/models/portfolio_data.dart';
 import 'package:nahid_hasan_noyon/data/portfolio_content.dart';
-import 'package:nahid_hasan_noyon/presentation/widgets/common/common_widgets.dart';
-import 'package:svg_flutter/svg.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class LicensesCertificationsPage extends StatefulWidget {
@@ -270,24 +270,22 @@ class _CertificationCard extends StatelessWidget {
           if (certification.imageUrl != null) ...[
             Stack(
               children: [
-                ClipRRect(
+                SmartImageWidget(
+                  source: certification.imageUrl!,
+                  height: 180,
+                  width: double.infinity,
+                  fit: BoxFit.cover,
                   borderRadius: const BorderRadius.only(
                     topLeft: Radius.circular(16),
                     topRight: Radius.circular(16),
                   ),
-                  child: Image.network(
-                    certification.imageUrl!,
+                  errorWidget: Container(
                     height: 180,
-                    width: double.infinity,
-                    fit: BoxFit.cover,
-                    errorBuilder: (_, _, _) => Container(
-                      height: 180,
-                      color: AppColors.jet,
-                      child: const Icon(
-                        Icons.workspace_premium,
-                        color: AppColors.lightGray,
-                        size: 50,
-                      ),
+                    color: AppColors.jet,
+                    child: const Icon(
+                      Icons.workspace_premium,
+                      color: AppColors.lightGray,
+                      size: 50,
                     ),
                   ),
                 ),
@@ -311,10 +309,9 @@ class _CertificationCard extends StatelessWidget {
                             child: Stack(
                               children: [
                                 InteractiveViewer(
-                                  child: Image.network(
-                                    certification.imageUrl!,
-                                    fit: BoxFit.contain,
-                                    errorBuilder: (_, _, _) => Container(
+                                  child: SmartImageWidget(
+                                    source: certification.imageUrl!,
+                                    errorWidget: Container(
                                       height: 300,
                                       color: AppColors.jet,
                                       child: const Icon(
@@ -358,37 +355,21 @@ class _CertificationCard extends StatelessWidget {
                   // Issuer Logo and Name
                   Row(
                     children: [
-                      Container(
+                      SmartImageWidget(
+                        source: certification.issuerLogo,
                         width: 40,
+                        borderRadius: BorderRadius.circular(8),
                         height: 40,
-                        decoration: BoxDecoration(
-                          color: AppColors.jet,
-                          borderRadius: BorderRadius.circular(8),
+                        backgroundColor: AppColors.jet,
+                        padding: const EdgeInsets.all(6),
+                        errorWidget: Center(
+                          child: Text(
+                            certification.issuer.substring(0, 1),
+                            style: AppTextStyles.h3.copyWith(
+                              color: AppColors.orangeYellowCrayola,
+                            ),
+                          ),
                         ),
-                        child: certification.issuerLogo != ''
-                            ? Padding(
-                                padding: const EdgeInsets.all(6.0),
-                                child: Image.asset(
-                                  certification.issuerLogo,
-                                  fit: BoxFit.contain,
-                                  errorBuilder: (_, _, _) => Center(
-                                    child: Text(
-                                      certification.issuer.substring(0, 1),
-                                      style: AppTextStyles.h3.copyWith(
-                                        color: AppColors.orangeYellowCrayola,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              )
-                            : Center(
-                                child: Text(
-                                  certification.issuer.substring(0, 1),
-                                  style: AppTextStyles.h3.copyWith(
-                                    color: AppColors.orangeYellowCrayola,
-                                  ),
-                                ),
-                              ),
                       ),
                       const SizedBox(width: 12),
                       Expanded(
@@ -497,46 +478,21 @@ class _CertificationCard extends StatelessWidget {
                           child: Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              if (certification.credentialLink!.icon != null)
-                                Padding(
-                                  padding: const EdgeInsets.only(right: 6),
-                                  child: SizedBox(
-                                    width: 14,
-                                    height: 14,
-                                    child:
-                                        certification.credentialLink!.icon!
-                                            .contains('svg')
-                                        ? SvgPicture.asset(
-                                            certification.credentialLink!.icon!,
-                                            width: 14,
-                                            height: 14,
-                                            colorFilter: const ColorFilter.mode(
-                                              AppColors.orangeYellowCrayola,
-                                              BlendMode.srcIn,
-                                            ),
-                                            placeholderBuilder: (context) {
-                                              return const Icon(
-                                                Icons.open_in_new,
-                                                size: 14,
-                                                color: AppColors
-                                                    .orangeYellowCrayola,
-                                              );
-                                            },
-                                          )
-                                        : Image.asset(
-                                            certification.credentialLink!.icon!,
-                                            color:
-                                                AppColors.orangeYellowCrayola,
-                                            errorBuilder: (_, _, _) =>
-                                                const Icon(
-                                                  Icons.open_in_new,
-                                                  size: 14,
-                                                  color: AppColors
-                                                      .orangeYellowCrayola,
-                                                ),
-                                          ),
+                              if (certification.credentialLink!.icon !=
+                                  null) ...[
+                                SmartImageWidget(
+                                  source: certification.credentialLink!.icon!,
+                                  width: 14,
+                                  height: 14,
+                                  color: AppColors.orangeYellowCrayola,
+                                  errorWidget: const Icon(
+                                    Icons.open_in_new,
+                                    size: 14,
+                                    color: AppColors.orangeYellowCrayola,
                                   ),
                                 ),
+                                const SizedBox(width: 6),
+                              ],
                               Text(
                                 certification.credentialLink!.name,
                                 style: AppTextStyles.bodyText.copyWith(

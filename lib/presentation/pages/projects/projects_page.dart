@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:nahid_hasan_noyon/core/theme/app_theme.dart';
 import 'package:nahid_hasan_noyon/core/utils/responsive.dart';
+import 'package:nahid_hasan_noyon/core/widgets/common/common_widgets.dart';
+import 'package:nahid_hasan_noyon/core/widgets/common/smart_image_widget.dart';
+import 'package:nahid_hasan_noyon/core/widgets/project_detail_modal.dart';
 import 'package:nahid_hasan_noyon/data/models/portfolio_data.dart';
 import 'package:nahid_hasan_noyon/data/portfolio_content.dart';
-import 'package:nahid_hasan_noyon/presentation/widgets/common/common_widgets.dart';
-import 'package:nahid_hasan_noyon/presentation/widgets/project_detail_modal.dart';
-import 'package:svg_flutter/svg.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ProjectsPage extends StatefulWidget {
@@ -159,7 +159,7 @@ class _ProjectsPageState extends State<ProjectsPage> {
         crossAxisCount: crossAxisCount,
         crossAxisSpacing: 30,
         mainAxisSpacing: 30,
-        childAspectRatio: crossAxisCount == 1 ? 1.3 : 0.85,
+        childAspectRatio: crossAxisCount == 1 ? 1.8 : 1,
       ),
       itemCount: _filteredProjects.length,
       itemBuilder: (context, index) {
@@ -264,46 +264,8 @@ class _ProjectCard extends StatefulWidget {
   State<_ProjectCard> createState() => _ProjectCardState();
 }
 
-class _ProjectCardState extends State<_ProjectCard>
-    with SingleTickerProviderStateMixin {
+class _ProjectCardState extends State<_ProjectCard> {
   bool _isHovered = false;
-  late List<String> _images;
-  int _currentImageIndex = 0;
-  late AnimationController _autoScrollController;
-
-  @override
-  void initState() {
-    super.initState();
-    _images =
-        widget.project.imageUrls ??
-        ['https://via.placeholder.com/400x300?text=No+Image'];
-
-    // Auto-rotate images every 3 seconds
-    _autoScrollController = AnimationController(
-      duration: const Duration(seconds: 3),
-      vsync: this,
-    );
-
-    _startAutoCycle();
-  }
-
-  void _startAutoCycle() {
-    _autoScrollController.forward().then((_) {
-      if (mounted) {
-        setState(() {
-          _currentImageIndex = (_currentImageIndex + 1) % _images.length;
-        });
-        _autoScrollController.reset();
-        _startAutoCycle();
-      }
-    });
-  }
-
-  @override
-  void dispose() {
-    _autoScrollController.dispose();
-    super.dispose();
-  }
 
   void _showProjectModal(BuildContext context) {
     showDialog(
@@ -320,147 +282,116 @@ class _ProjectCardState extends State<_ProjectCard>
       cursor: SystemMouseCursors.click,
       child: GestureDetector(
         onTap: () => _showProjectModal(context),
-        child: AnimatedScale(
-          scale: _isHovered ? 1.02 : 1,
+        child: AnimatedContainer(
           duration: const Duration(milliseconds: 250),
+          padding: const EdgeInsets.all(20),
+          decoration: BoxDecoration(
+            color: AppColors.eerieBlack2,
+            borderRadius: BorderRadius.circular(16),
+            border: Border.all(
+              color: _isHovered ? AppColors.orangeYellowCrayola : AppColors.jet,
+            ),
+            boxShadow: _isHovered
+                ? [
+                    BoxShadow(
+                      color: AppColors.orangeYellowCrayola.withValues(
+                        alpha: 0.2,
+                      ),
+                      blurRadius: 12,
+                      offset: const Offset(0, 4),
+                    ),
+                  ]
+                : null,
+          ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
             children: [
-              Expanded(
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(16),
-                  child: Stack(
-                    fit: StackFit.expand,
-                    children: [
-                      AnimatedScale(
-                        scale: _isHovered ? 1.1 : 1,
-                        duration: const Duration(milliseconds: 250),
-                        child: AnimatedSwitcher(
-                          duration: const Duration(milliseconds: 500),
-                          transitionBuilder: (child, animation) =>
-                              SlideTransition(
-                                position: Tween<Offset>(
-                                  begin: const Offset(1, 0),
-                                  end: Offset.zero,
-                                ).animate(animation),
-                                child: child,
-                              ),
-                          child: Image.network(
-                            _images[_currentImageIndex],
-                            key: ValueKey(_images[_currentImageIndex]),
-                            fit: BoxFit.cover,
-                            errorBuilder: (_, _, _) => Container(
-                              color: AppColors.jet,
-                              child: const Icon(
-                                Icons.image,
-                                color: AppColors.lightGray,
-                                size: 50,
-                              ),
-                            ),
-                          ),
-                        ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                    child: Text(
+                      widget.project.title,
+                      style: AppTextStyles.h4.copyWith(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500,
                       ),
-                      AnimatedContainer(
-                        duration: const Duration(milliseconds: 250),
-                        color: _isHovered
-                            ? Colors.black.withValues(alpha: 0.5)
-                            : Colors.transparent,
-                      ),
-                      AnimatedOpacity(
-                        duration: const Duration(milliseconds: 250),
-                        opacity: _isHovered ? 1 : 0,
-                        child: Center(
-                          child: AnimatedScale(
-                            scale: _isHovered ? 1 : 0.8,
-                            duration: const Duration(milliseconds: 250),
-                            child: Container(
-                              padding: const EdgeInsets.all(18),
-                              decoration: BoxDecoration(
-                                color: AppColors.jet,
-                                borderRadius: BorderRadius.circular(12),
-                              ),
-                              child: const Icon(
-                                Icons.visibility_outlined,
-                                color: AppColors.orangeYellowCrayola,
-                                size: 20,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
                   ),
-                ),
-              ),
-              const SizedBox(height: 15),
-              Padding(
-                padding: const EdgeInsets.only(left: 10),
-                child: Text(
-                  widget.project.title,
-                  style: AppTextStyles.h4.copyWith(
-                    fontSize: 15,
-                    fontWeight: FontWeight.w400,
+                  const SizedBox(width: 8),
+                  AnimatedRotation(
+                    turns: _isHovered ? 0.125 : 0,
+                    duration: const Duration(milliseconds: 250),
+                    child: Icon(
+                      Icons.arrow_outward,
+                      color: _isHovered
+                          ? AppColors.orangeYellowCrayola
+                          : AppColors.lightGray70,
+                      size: 20,
+                    ),
                   ),
-                ),
+                ],
               ),
               if (widget.selectedCategory == 'All') ...[
-                Padding(
-                  padding: const EdgeInsets.only(left: 10),
-                  child: Text(
-                    widget.project.category,
-                    style: AppTextStyles.bodyText.copyWith(
-                      color: AppColors.lightGray70,
-                    ),
+                const SizedBox(height: 6),
+                Text(
+                  widget.project.category,
+                  style: AppTextStyles.bodyText.copyWith(
+                    color: AppColors.lightGray70,
+                    fontSize: 13,
                   ),
                 ),
               ],
               if (widget.project.description != null) ...[
-                const SizedBox(height: 10),
-                Padding(
-                  padding: const EdgeInsets.only(left: 10, right: 10),
-                  child: Text(
-                    widget.project.description!,
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    style: AppTextStyles.bodyText.copyWith(
-                      fontSize: 13,
-                      color: AppColors.lightGray70,
-                    ),
+                const SizedBox(height: 12),
+                Text(
+                  widget.project.description!,
+                  maxLines: 3,
+                  overflow: TextOverflow.ellipsis,
+                  style: AppTextStyles.bodyText.copyWith(
+                    fontSize: 13,
+                    color: AppColors.lightGray70,
+                    height: 1.3,
                   ),
                 ),
               ],
               if (widget.project.keywords != null &&
                   widget.project.keywords!.isNotEmpty) ...[
                 const SizedBox(height: 10),
-                Padding(
-                  padding: const EdgeInsets.only(left: 10, right: 10),
-                  child: Wrap(
-                    spacing: 6,
-                    runSpacing: 4,
-                    children: widget.project.keywords!
-                        .take(3)
-                        .map(
-                          (keyword) => Container(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 8,
-                              vertical: 4,
-                            ),
-                            decoration: BoxDecoration(
-                              color: AppColors.jet,
-                              border: Border.all(width: 0.5),
-                              borderRadius: BorderRadius.circular(6),
-                            ),
-                            child: Text(
-                              keyword,
-                              style: AppTextStyles.bodyText.copyWith(
-                                fontSize: 11,
-                                color: AppColors.orangeYellowCrayola,
+                Wrap(
+                  spacing: 6,
+                  runSpacing: 6,
+                  children: widget.project.keywords!
+                      .take(4)
+                      .map(
+                        (keyword) => Container(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 10,
+                            vertical: 5,
+                          ),
+                          decoration: BoxDecoration(
+                            color: AppColors.jet,
+                            border: Border.all(
+                              color: AppColors.orangeYellowCrayola.withValues(
+                                alpha: 0.3,
                               ),
+                              width: 0.5,
+                            ),
+                            borderRadius: BorderRadius.circular(6),
+                          ),
+                          child: Text(
+                            keyword,
+                            style: AppTextStyles.bodyText.copyWith(
+                              fontSize: 11,
+                              color: AppColors.orangeYellowCrayola,
                             ),
                           ),
-                        )
-                        .toList(),
-                  ),
+                        ),
+                      )
+                      .toList(),
                 ),
               ],
               if (widget.project.links != null &&
@@ -497,48 +428,19 @@ class _ProjectCardState extends State<_ProjectCard>
                                 child: Row(
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
-                                    if (link.icon != null)
-                                      Padding(
-                                        padding: const EdgeInsets.only(
-                                          right: 6,
-                                        ),
-                                        child: SizedBox(
-                                          width: 14,
-                                          height: 14,
-                                          child: link.icon!.contains('svg')
-                                              ? SvgPicture.asset(
-                                                  link.icon!,
-                                                  width: 14,
-                                                  height: 14,
-                                                  colorFilter:
-                                                      const ColorFilter.mode(
-                                                        AppColors
-                                                            .orangeYellowCrayola,
-                                                        BlendMode.srcIn,
-                                                      ),
-                                                  placeholderBuilder: (context) {
-                                                    return const Icon(
-                                                      Icons.link,
-                                                      size: 14,
-                                                      color: AppColors
-                                                          .orangeYellowCrayola,
-                                                    );
-                                                  },
-                                                )
-                                              : Image.asset(
-                                                  link.icon!,
-                                                  color: AppColors
-                                                      .orangeYellowCrayola,
-                                                  errorBuilder: (_, _, _) =>
-                                                      const Icon(
-                                                        Icons.link,
-                                                        size: 14,
-                                                        color: AppColors
-                                                            .orangeYellowCrayola,
-                                                      ),
-                                                ),
+                                    if (link.icon != null) ...[
+                                      SmartImageWidget(
+                                        source: link.icon!,
+                                        width: 14,
+                                        height: 14,
+                                        errorWidget: const Icon(
+                                          Icons.link,
+                                          size: 14,
+                                          color: AppColors.orangeYellowCrayola,
                                         ),
                                       ),
+                                      const SizedBox(width: 6),
+                                    ],
                                     Text(
                                       link.name,
                                       style: AppTextStyles.bodyText.copyWith(
