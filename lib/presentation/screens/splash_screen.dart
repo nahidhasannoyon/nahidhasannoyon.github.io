@@ -28,6 +28,7 @@ class _SplashScreenState extends State<SplashScreen>
   late Animation<double> _logoOpacity;
   late Animation<double> _logoRotation;
   late Animation<double> _deOpacity;
+  late Animation<double> _vOpacity;
   late Animation<double> _vRotation;
   late Animation<double> _vTranslation;
   late Animation<double> _glowAnimation;
@@ -116,37 +117,37 @@ class _SplashScreenState extends State<SplashScreen>
   void _initializeAnimations() {
     // Logo animation controller - dramatic entrance
     _logoController = AnimationController(
-      duration: const Duration(milliseconds: 1800),
+      duration: const Duration(milliseconds: 1200),
       vsync: this,
     );
 
     // Text animation controller
     _textController = AnimationController(
-      duration: const Duration(milliseconds: 2200),
+      duration: const Duration(milliseconds: 1600),
       vsync: this,
     );
 
     // Glow pulse animation
     _glowController = AnimationController(
-      duration: const Duration(milliseconds: 2000),
+      duration: const Duration(milliseconds: 1200),
       vsync: this,
     )..repeat(reverse: true);
 
     // Particle animation
     _particleController = AnimationController(
-      duration: const Duration(seconds: 15),
+      duration: const Duration(seconds: 10),
       vsync: this,
     )..repeat();
 
     // Ring expansion animation
     _ringController = AnimationController(
-      duration: const Duration(milliseconds: 2500),
+      duration: const Duration(milliseconds: 1800),
       vsync: this,
     )..repeat();
 
     // Shimmer animation for text
     _shimmerController = AnimationController(
-      duration: const Duration(milliseconds: 2500),
+      duration: const Duration(milliseconds: 1800),
       vsync: this,
     )..repeat();
 
@@ -202,25 +203,49 @@ class _SplashScreenState extends State<SplashScreen>
       end: 1.0,
     ).animate(CurvedAnimation(parent: _ringController, curve: Curves.easeOut));
 
-    // Text animations
-    _deOpacity = Tween<double>(begin: 1.0, end: 0.0).animate(
+    // Text animations - De fades in after title, then fades out
+    _deOpacity =
+        TweenSequence<double>([
+          TweenSequenceItem(
+            tween: Tween(
+              begin: 0.0,
+              end: 1.0,
+            ).chain(CurveTween(curve: Curves.easeIn)),
+            weight: 35,
+          ),
+          TweenSequenceItem(tween: ConstantTween(1.0), weight: 30),
+          TweenSequenceItem(
+            tween: Tween(
+              begin: 1.0,
+              end: 0.0,
+            ).chain(CurveTween(curve: Curves.easeOut)),
+            weight: 35,
+          ),
+        ]).animate(
+          CurvedAnimation(
+            parent: _textController,
+            curve: const Interval(0.55, 0.75),
+          ),
+        );
+
+    _vOpacity = Tween<double>(begin: 0.0, end: 1.0).animate(
       CurvedAnimation(
         parent: _textController,
-        curve: const Interval(0.25, 0.45, curve: Curves.easeOut),
+        curve: const Interval(0.55, 0.65, curve: Curves.easeIn),
       ),
     );
 
     _vRotation = Tween<double>(begin: 0.0, end: -math.pi / 2).animate(
       CurvedAnimation(
         parent: _textController,
-        curve: const Interval(0.45, 0.65, curve: Curves.easeInOutCubic),
+        curve: const Interval(0.65, 0.78, curve: Curves.easeInOutCubic),
       ),
     );
 
     _vTranslation = Tween<double>(begin: 0.0, end: -60.0).animate(
       CurvedAnimation(
         parent: _textController,
-        curve: const Interval(0.65, 0.80, curve: Curves.easeOutCubic),
+        curve: const Interval(0.78, 0.88, curve: Curves.easeOutCubic),
       ),
     );
 
@@ -236,47 +261,43 @@ class _SplashScreenState extends State<SplashScreen>
     _nameOpacity = Tween<double>(begin: 0.0, end: 1.0).animate(
       CurvedAnimation(
         parent: _textController,
-        curve: const Interval(0.65, 0.80, curve: Curves.easeOut),
+        curve: const Interval(0.15, 0.40, curve: Curves.easeOut),
       ),
     );
 
-    _nameSlide = Tween<Offset>(begin: const Offset(0, 0.5), end: Offset.zero)
+    _nameSlide = Tween<Offset>(begin: const Offset(0, 0.3), end: Offset.zero)
         .animate(
           CurvedAnimation(
             parent: _textController,
-            curve: const Interval(0.65, 0.80, curve: Curves.easeOutCubic),
+            curve: const Interval(0.15, 0.40, curve: Curves.easeOutCubic),
           ),
         );
 
     _titleOpacity = Tween<double>(begin: 0.0, end: 1.0).animate(
       CurvedAnimation(
         parent: _textController,
-        curve: const Interval(0.78, 0.92, curve: Curves.easeOut),
+        curve: const Interval(0.35, 0.60, curve: Curves.easeOut),
       ),
     );
 
-    _titleSlide = Tween<Offset>(begin: const Offset(0, 0.5), end: Offset.zero)
+    _titleSlide = Tween<Offset>(begin: const Offset(0, 0.3), end: Offset.zero)
         .animate(
           CurvedAnimation(
             parent: _textController,
-            curve: const Interval(0.78, 0.92, curve: Curves.easeOutCubic),
+            curve: const Interval(0.35, 0.60, curve: Curves.easeOutCubic),
           ),
         );
   }
 
   void _startAnimation() async {
-    // Start logo animation with slight delay for dramatic effect
-    await Future.delayed(const Duration(milliseconds: 300));
     _logoController.forward();
-
-    await Future.delayed(const Duration(milliseconds: 1400));
-
-    // Start text animation
+    await Future.delayed(const Duration(milliseconds: 1800));
     _textController.forward();
 
-    await Future.delayed(const Duration(milliseconds: 2000));
+    // Wait for core animations to establish visual hierarchy
+    await Future.delayed(const Duration(milliseconds: 1400));
 
-    // Show loading text character by character with variable speed
+    // Show loading text character by character with faster typing
     if (mounted) {
       setState(() => _showLoadingText = true);
       for (int i = 0; i < _fullLoadingText.length; i++) {
@@ -284,22 +305,22 @@ class _SplashScreenState extends State<SplashScreen>
         setState(() {
           _loadingText = _fullLoadingText.substring(0, i + 1);
         });
-        // Variable typing speed for more natural feel
-        final delay = _fullLoadingText[i] == '.' ? 200 : 80;
+        // Faster typing speed: 40ms per char, 15ms for dots
+        final delay = _fullLoadingText[i] == '.' ? 15 : 40;
         await Future.delayed(Duration(milliseconds: delay));
       }
     }
 
-    await Future.delayed(const Duration(milliseconds: 800));
+    await Future.delayed(const Duration(milliseconds: 50));
 
     // Fade out entire screen with smooth curve
     if (mounted) {
-      for (int i = 100; i >= 0; i -= 2) {
+      for (int i = 100; i >= 0; i -= 5) {
         if (!mounted) return;
         // Apply easeOut curve to the fade
         final curvedValue = Curves.easeOutCubic.transform(i / 100);
         setState(() => _fadeOutOpacity = curvedValue);
-        await Future.delayed(const Duration(milliseconds: 12));
+        await Future.delayed(const Duration(milliseconds: 8));
       }
     }
 
@@ -312,7 +333,7 @@ class _SplashScreenState extends State<SplashScreen>
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
             return FadeTransition(opacity: animation, child: child);
           },
-          transitionDuration: const Duration(milliseconds: 600),
+          transitionDuration: const Duration(milliseconds: 1),
         ),
       );
     }
@@ -412,19 +433,6 @@ class _SplashScreenState extends State<SplashScreen>
                   // Animated text section
                   _buildAnimatedText(),
                 ],
-              ),
-            ),
-
-            // Subtle noise texture overlay
-            Opacity(
-              opacity: 0.03,
-              child: Container(
-                decoration: const BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage('assets/images/noise.png'),
-                    repeat: ImageRepeat.repeat,
-                  ),
-                ),
               ),
             ),
           ],
@@ -650,11 +658,14 @@ class _SplashScreenState extends State<SplashScreen>
                 ),
 
                 // v that rotates to > with glow
-                Transform.translate(
-                  offset: Offset(_vTranslation.value, 0),
-                  child: Transform.rotate(
-                    angle: _vRotation.value,
-                    child: _buildGlowText('v', 72),
+                Opacity(
+                  opacity: _vOpacity.value.clamp(0.0, 1.0),
+                  child: Transform.translate(
+                    offset: Offset(_vTranslation.value, 0),
+                    child: Transform.rotate(
+                      angle: _vRotation.value,
+                      child: _buildGlowText('v', 72),
+                    ),
                   ),
                 ),
 
